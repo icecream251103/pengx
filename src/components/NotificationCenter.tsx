@@ -233,7 +233,7 @@ const NotificationCenter: React.FC = () => {
                         className="rounded"
                       />
                       <span className="text-gray-700 dark:text-gray-300">
-                        {alert.type === 'above' ? '↗' : '↘'} {formatCurrency(alert.price)}
+                        {alert.type === 'above' ? 'Trên' : 'Dưới'} {formatCurrency(alert.price)}
                       </span>
                     </div>
                     <button

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DollarSign, Calendar, Clock, Target, ArrowRight, TestTube } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useSandbox } from '../contexts/SandboxContext';
@@ -18,12 +18,58 @@ const DCAForm: React.FC<{ onCreate: (plan: DCAPlan) => void }> = ({ onCreate }) 
   const [endDate, setEndDate] = useState('');
   const [error, setError] = useState<string | null>(null);
 
+  // Validate dates in real-time
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    
+    // Check if start date is in the past
+    if (startDate && startDate < today) {
+      setError('Ngày bắt đầu không thể là ngày trong quá khứ');
+      return;
+    }
+    
+    // Check if end date is before start date
+    if (endDate && startDate) {
+      const startDateObj = new Date(startDate);
+      const endDateObj = new Date(endDate);
+      
+      if (endDateObj <= startDateObj) {
+        setError('Ngày kết thúc phải lớn hơn ngày bắt đầu');
+        return;
+      }
+    }
+    
+    // Clear error if all validations pass
+    if (error === 'Ngày kết thúc phải lớn hơn ngày bắt đầu' || error === 'Ngày bắt đầu không thể là ngày trong quá khứ') {
+      setError(null);
+    }
+  }, [startDate, endDate, error]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!amount || !startDate) return;
     
     const numAmount = parseFloat(amount);
     setError(null);
+
+    const today = new Date().toISOString().split('T')[0];
+    
+    // Validate start date: must be today or in the future
+    if (startDate < today) {
+      setError('Ngày bắt đầu không thể là ngày trong quá khứ');
+      return;
+    }
+
+    // Validate date: end date must be greater than start date
+    if (endDate && startDate) {
+      const startDateObj = new Date(startDate);
+      const endDateObj = new Date(endDate);
+      
+      if (endDateObj <= startDateObj) {
+        setError('Ngày kết thúc phải lớn hơn ngày bắt đầu');
+        return;
+      }
+    }
 
     // Validate amount for sandbox mode
     if (isSandboxMode && numAmount > sandboxBalance.virtualUSD) {
@@ -182,7 +228,12 @@ const DCAForm: React.FC<{ onCreate: (plan: DCAPlan) => void }> = ({ onCreate }) 
               type="date"
               value={startDate}
               onChange={e => setStartDate(e.target.value)}
-              className="w-full px-4 py-4 border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-xl focus:border-amber-500 focus:ring-4 focus:ring-amber-100 dark:focus:ring-amber-900/20 outline-none transition-all text-gray-900 dark:text-white"
+              min={new Date().toISOString().split('T')[0]}
+              className={`w-full px-4 py-4 border-2 rounded-xl focus:ring-4 outline-none transition-all text-gray-900 dark:text-white ${
+                error === 'Ngày bắt đầu không thể là ngày trong quá khứ'
+                  ? 'border-red-500 focus:border-red-500 focus:ring-red-100 dark:focus:ring-red-900/20 bg-red-50 dark:bg-red-900/10'
+                  : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-amber-500 focus:ring-amber-100 dark:focus:ring-amber-900/20'
+              }`}
               required
             />
           </div>
@@ -196,7 +247,11 @@ const DCAForm: React.FC<{ onCreate: (plan: DCAPlan) => void }> = ({ onCreate }) 
               type="date"
               value={endDate}
               onChange={e => setEndDate(e.target.value)}
-              className="w-full px-4 py-4 border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-xl focus:border-amber-500 focus:ring-4 focus:ring-amber-100 dark:focus:ring-amber-900/20 outline-none transition-all text-gray-900 dark:text-white"
+              className={`w-full px-4 py-4 border-2 rounded-xl focus:ring-4 outline-none transition-all text-gray-900 dark:text-white ${
+                error === 'Ngày kết thúc phải lớn hơn ngày bắt đầu'
+                  ? 'border-red-500 focus:border-red-500 focus:ring-red-100 dark:focus:ring-red-900/20 bg-red-50 dark:bg-red-900/10'
+                  : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-amber-500 focus:ring-amber-100 dark:focus:ring-amber-900/20'
+              }`}
             />
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
               Để trống nếu muốn đầu tư vô thời hạn
@@ -246,9 +301,14 @@ const DCAForm: React.FC<{ onCreate: (plan: DCAPlan) => void }> = ({ onCreate }) 
         {/* Submit Button */}
         <motion.button
           type="submit"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 text-lg"
+          disabled={error === 'Ngày kết thúc phải lớn hơn ngày bắt đầu' || error === 'Ngày bắt đầu không thể là ngày trong quá khứ'}
+          whileHover={{ scale: (error === 'Ngày kết thúc phải lớn hơn ngày bắt đầu' || error === 'Ngày bắt đầu không thể là ngày trong quá khứ') ? 1 : 1.02 }}
+          whileTap={{ scale: (error === 'Ngày kết thúc phải lớn hơn ngày bắt đầu' || error === 'Ngày bắt đầu không thể là ngày trong quá khứ') ? 1 : 0.98 }}
+          className={`w-full font-bold py-4 px-6 rounded-xl transition-all duration-200 shadow-lg flex items-center justify-center space-x-2 text-lg ${
+            (error === 'Ngày kết thúc phải lớn hơn ngày bắt đầu' || error === 'Ngày bắt đầu không thể là ngày trong quá khứ')
+              ? 'bg-gray-400 cursor-not-allowed text-gray-700'
+              : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white hover:shadow-xl'
+          }`}
         >
           <span>{isSandboxMode ? 'Tạo kế hoạch DCA Ảo' : 'Tạo kế hoạch DCA'}</span>
           <ArrowRight className="h-5 w-5" />

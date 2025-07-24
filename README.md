@@ -85,7 +85,7 @@ This project leverages cutting-edge blockchain technology:
 1. Clone the repository
    ```bash
    git clone https://github.com/yourusername/pentagold.git
-   cd pentagold
+   cd pengx
    ```
 
 2. Install dependencies

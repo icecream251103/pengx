@@ -184,7 +184,7 @@ function App() {
             >
               <span className="text-amber-400 text-4xl font-extrabold mb-4">{i}</span>
               <h3 className="text-xl font-bold text-[#10131a] mb-3">
-                {i === 1 ? 'Thanh toán tức thì' : i === 2 ? 'Chi phí lưu trữ bằng không' : 'Theo dõi giá thuật toán'}
+                {i === 1 ? 'Thanh toán tức thì' : i === 2 ? 'Không chi phí lưu trữ' : 'Theo dõi giá thuật toán'}
               </h3>
               <p className="text-gray-700 text-center">
                 {i === 1 ? 'Giao dịch vàng 24/7 với thanh toán ngay lập tức. Không cần chờ đợi vận hành kho hoặc chuyển giao bảo quản.' : i === 2 ? 'Loại bỏ phí kho, chi phí bảo hiểm và mối quan tâm về lưu trữ. Tiếp xúc giá thuần túy mà không có chi phí bảo quản vật lý.' : 'Tổng hợp oracle đa nguồn đảm bảo theo dõi giá vàng thời gian thực chính xác mà không có rủi ro bảo quản tập trung.'}

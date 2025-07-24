@@ -187,14 +187,27 @@ const KYC: React.FC = () => {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Quốc tịch *
                 </label>
-                <input
-                  type="text"
+                <select
                   name="nationality"
                   value={formData.nationality}
                   onChange={handleInputChange}
                   className={`w-full px-3 py-2 border ${errors.nationality ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
                   required
-                />
+                >
+                  <option value="">Chọn quốc tịch</option>
+                  <option value="VN">Việt Nam</option>
+                  <option value="US">Hoa Kỳ</option>
+                  <option value="CA">Canada</option>
+                  <option value="GB">Vương quốc Anh</option>
+                  <option value="JP">Nhật Bản</option>
+                  <option value="SG">Singapore</option>
+                  <option value="AU">Úc</option>
+                  <option value="DE">Đức</option>
+                  <option value="FR">Pháp</option>
+                  <option value="CH">Thụy Sĩ</option>
+                  <option value="NL">Hà Lan</option>
+                  <option value="other">Khác</option>
+                </select>
                 {errors.nationality && <p className="text-red-500 text-sm mt-1">{errors.nationality}</p>}
               </div>
               <div className="md:col-span-2">
@@ -275,33 +288,21 @@ const KYC: React.FC = () => {
                     onChange={handleInputChange}
                     className={`w-full px-3 py-2 border ${errors.country ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
                     required
-                  >
-                    <option value="">Chọn quốc gia</option>
-                    <option value="VN">Việt Nam</option>
-                    <option value="US">Hoa Kỳ</option>
-                    <option value="CA">Canada</option>
-                    <option value="GB">Vương quốc Anh</option>
-                    <option value="DE">Đức</option>
-                    <option value="FR">Pháp</option>
-                    <option value="AU">Úc</option>
-                    <option value="JP">Nhật Bản</option>
-                    <option value="SG">Singapore</option>
-                    <option value="IN">Ấn Độ</option>
-                    <option value="BR">Brazil</option>
-                    <option value="MX">Mexico</option>
-                    <option value="ES">Tây Ban Nha</option>
-                    <option value="IT">Ý</option>
-                    <option value="CH">Thụy Sĩ</option>
-                    <option value="NL">Hà Lan</option>
-                    <option value="SE">Thụy Điển</option>
-                    <option value="PL">Thổ Nhĩ Kỳ</option>
-                    <option value="RU">Nga</option>
-                    <option value="TR">Thổ Nhĩ Kỳ</option>
-                    <option value="AE">UAE</option>
-                    <option value="EG">Ai Cập</option>
-                    <option value="ZA">Nam Phi</option>
-                    <option value="VN">Việt Nam</option>
-                  </select>
+                >
+                  <option value="">Chọn quốc tịch</option>
+                  <option value="VN">Việt Nam</option>
+                  <option value="US">Hoa Kỳ</option>
+                  <option value="CA">Canada</option>
+                  <option value="GB">Vương quốc Anh</option>
+                  <option value="JP">Nhật Bản</option>
+                  <option value="SG">Singapore</option>
+                  <option value="AU">Úc</option>
+                  <option value="DE">Đức</option>
+                  <option value="FR">Pháp</option>
+                  <option value="CH">Thụy Sĩ</option>
+                  <option value="NL">Hà Lan</option>
+                  <option value="other">Khác</option>
+                </select>
                   {errors.country && <p className="text-red-500 text-sm mt-1">{errors.country}</p>}
                 </div>
               </div>

@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { ethers, BrowserProvider } from 'ethers';
+import { ethers, BrowserProvider, JsonRpcSigner } from 'ethers';
 
 interface Web3ContextType {
   account: string | null;
   provider: BrowserProvider | null;
-  signer: ethers.JsonRpcSigner | null;
+  signer: JsonRpcSigner | null;
   isConnected: boolean;
   isCorrectNetwork: boolean;
   networkId: number | null;
@@ -16,6 +16,7 @@ interface Web3ContextType {
   disconnectWallet: () => void;
   switchNetwork: () => Promise<void>;
   clearError: () => void;
+  checkKYCStatus: (address: string) => Promise<void>;
 }
 
 const Web3Context = createContext<Web3ContextType | undefined>(undefined);
@@ -236,7 +237,8 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
     connectWallet,
     disconnectWallet,
     switchNetwork,
-    clearError
+    clearError,
+    checkKYCStatus
   };
 
   return (

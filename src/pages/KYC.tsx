@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWeb3 } from '../contexts/Web3Context';
+import BiometricSetup from '../components/BiometricSetup';
 import { 
   User, 
   FileText, 
@@ -19,6 +20,7 @@ const KYC: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showBiometricSetup, setShowBiometricSetup] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -115,8 +117,8 @@ const KYC: React.FC = () => {
       // Show success message briefly before redirect
       setErrors({ general: '' });
       
-      // Navigate to dashboard immediately
-      navigate('/dashboard');
+      // Show biometric setup instead of navigating directly
+      setShowBiometricSetup(true);
     } catch (error) {
       console.error('KYC submission failed:', error);
       setErrors({ general: 'Gửi KYC thất bại. Vui lòng thử lại.' });
@@ -124,6 +126,30 @@ const KYC: React.FC = () => {
       setLoading(false);
     }
   };
+
+  const handleBiometricSetupComplete = () => {
+    // First, ensure the KYC status is set in localStorage
+    if (account) {
+      localStorage.setItem(`kyc_${account.toLowerCase()}`, 'approved');
+    }
+    
+    // Force refresh the page to ensure Web3Context picks up the updated KYC status
+    window.location.replace('/dashboard');
+  };
+
+  const handleBiometricSetupSkip = () => {
+    navigate('/dashboard');
+  };
+
+  // Show biometric setup if KYC is completed
+  if (showBiometricSetup) {
+    return (
+      <BiometricSetup
+        onComplete={handleBiometricSetupComplete}
+        onSkip={handleBiometricSetupSkip}
+      />
+    );
+  }
 
   const steps = [
     { number: 1, title: 'Thông tin cá nhân', icon: User },

@@ -1,8 +1,9 @@
-import React from 'react';
-import { ArrowRight, ChevronDown, Shield, BarChart3, Coins, Globe, Github, Twitter, Lock, Zap, Network, Bell, Newspaper, ExternalLink, Building2, Wallet, Database, Boxes, AlertTriangle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowRight, ChevronDown, Shield, BarChart3, Coins, Globe, Github, Twitter, Lock, Zap, Network, Bell, Newspaper, ExternalLink, Building2, Wallet, Database, Boxes, AlertTriangle, Scan } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useWeb3 } from './contexts/Web3Context';
 import SimpleAdvancedChart from './components/SimpleAdvancedChart';
+import BiometricLogin from './components/BiometricLogin';
 import { motion } from 'framer-motion';
 
 
@@ -33,6 +34,14 @@ function PentaGoldLogo({ size = 220, rotate = false }) {
 function App() {
   const { isConnected, connectWallet, loading, error, clearError } = useWeb3();
   const navigate = useNavigate();
+  const [showBiometricLogin, setShowBiometricLogin] = useState(false);
+  const [hasBiometricData, setHasBiometricData] = useState(false);
+
+  // Check for biometric data on component mount
+  useEffect(() => {
+    const biometricData = localStorage.getItem('biometric_data');
+    setHasBiometricData(!!biometricData);
+  }, []);
 
   const handleGetStarted = async () => {
     if (!isConnected) {
@@ -40,6 +49,11 @@ function App() {
     } else {
       navigate('/kyc');
     }
+  };
+
+  const handleBiometricLoginSuccess = () => {
+    setShowBiometricLogin(false);
+    navigate('/dashboard');
   };
 
   return (
@@ -531,6 +545,14 @@ function App() {
           </div>
         </div>
       </footer>
+      
+      {/* Biometric Login Modal */}
+      {showBiometricLogin && (
+        <BiometricLogin
+          onSuccess={handleBiometricLoginSuccess}
+          onBack={() => setShowBiometricLogin(false)}
+        />
+      )}
     </div>
   );
 }

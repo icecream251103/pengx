@@ -447,72 +447,66 @@ const Dashboard: React.FC = () => {
               Hệ sinh thái PentaGold
             </h3>
           
-          <div className="space-y-2">
+          <div className="space-y-3">
             {modules.map((module) => (
               <div
                 key={module.id}
-                className={`w-full p-3 rounded-lg transition-all duration-200 ${
+                className={`w-full rounded-lg transition-all duration-200 ${
                   module.status === 'coming-soon'
                     ? 'bg-gray-50 dark:bg-gray-700/50 opacity-70 cursor-not-allowed'
                     : 'bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer'
                 }`}
               >
-                <div className="flex items-center space-x-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${
-                    module.status === 'coming-soon' 
-                      ? 'bg-gray-200 dark:bg-gray-600' 
-                      : `bg-${module.color}-100 dark:bg-${module.color}-900/30`
-                  }`}>
-                    {module.icon}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2">
-                      <span className="font-semibold text-gray-900 dark:text-white">
-                        {module.name}
-                      </span>
-                      {module.status === 'coming-soon' && (
-                        <span className="px-2 py-0.5 bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400 text-xs rounded-full">
-                          Sắp ra mắt
-                        </span>
-                      )}
+                {/* Module Header */}
+                <div className="p-3">
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${
+                      module.status === 'coming-soon' 
+                        ? 'bg-gray-200 dark:bg-gray-600' 
+                        : `bg-${module.color}-100 dark:bg-${module.color}-900/30`
+                    }`}>
+                      {module.icon}
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {module.description}
-                    </p>
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2">
+                        <span className="font-semibold text-gray-900 dark:text-white">
+                          {module.name}
+                        </span>
+                        {module.status === 'coming-soon' && (
+                          <span className="px-2 py-0.5 bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400 text-xs rounded-full">
+                            Sắp ra mắt
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {module.description}
+                      </p>
+                    </div>
                   </div>
+                </div>
+                
+                {/* Module Details */}
+                <div className={`px-3 pb-3 pt-1 rounded-b-lg ${
+                  module.id === 'penta-lend' 
+                    ? 'bg-blue-50 dark:bg-blue-900/20'
+                    : module.id === 'penta-invest'
+                    ? 'bg-green-50 dark:bg-green-900/20'
+                    : 'bg-purple-50 dark:bg-purple-900/20'
+                }`}>
+                  <p className={`text-xs ${
+                    module.id === 'penta-lend'
+                      ? 'text-blue-700 dark:text-blue-400'
+                      : module.id === 'penta-invest'
+                      ? 'text-green-700 dark:text-green-400'
+                      : 'text-purple-700 dark:text-purple-400'
+                  }`}>
+                    {module.id === 'penta-lend' && 'Cho vay và vay mượn tài sản được token hóa với lãi suất cạnh tranh.'}
+                    {module.id === 'penta-invest' && 'Quỹ đầu tư tự động vào các kim loại quý với chiến lược đa dạng hóa.'}
+                    {module.id === 'penta-pay' && 'Cổng thanh toán bằng token kim loại quý cho thương mại điện tử.'}
+                  </p>
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Module Info Cards */}
-          <div className="mt-4 space-y-3">
-            <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <h4 className="text-sm font-medium text-blue-800 dark:text-blue-300 mb-2 flex items-center">
-                🏦 Penta Lend
-              </h4>
-              <p className="text-xs text-blue-700 dark:text-blue-400">
-                Cho vay và vay mượn tài sản được token hóa với lãi suất cạnh tranh.
-              </p>
-            </div>
-            
-            <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-              <h4 className="text-sm font-medium text-green-800 dark:text-green-300 mb-2 flex items-center">
-                📈 Penta Invest
-              </h4>
-              <p className="text-xs text-green-700 dark:text-green-400">
-                Quỹ đầu tư tự động vào các kim loại quý với chiến lược đa dạng hóa.
-              </p>
-            </div>
-            
-            <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-              <h4 className="text-sm font-medium text-purple-800 dark:text-purple-300 mb-2 flex items-center">
-                💳 Penta Pay
-              </h4>
-              <p className="text-xs text-purple-700 dark:text-purple-400">
-                Cổng thanh toán bằng token kim loại quý cho thương mại điện tử.
-              </p>
-            </div>
           </div>
         </div>
           </>

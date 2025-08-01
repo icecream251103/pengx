@@ -265,8 +265,9 @@ const Dashboard: React.FC = () => {
         name: 'Penta Lend',
         description: 'Lending & Borrowing',
         icon: '🏦',
-        status: 'coming-soon',
-        color: 'blue'
+        status: 'active',
+        color: 'blue',
+        badge: 'Thử Nghiệm'
       },
       {
         id: 'penta-invest',
@@ -274,7 +275,8 @@ const Dashboard: React.FC = () => {
         description: 'Investment Pools',
         icon: '📈',
         status: 'coming-soon',
-        color: 'green'
+        color: 'green',
+        badge: undefined
       },
       {
         id: 'penta-pay',
@@ -282,7 +284,8 @@ const Dashboard: React.FC = () => {
         description: 'Payment Gateway',
         icon: '💳',
         status: 'coming-soon',
-        color: 'purple'
+        color: 'purple',
+        badge: undefined
       }
     ];
 
@@ -451,6 +454,11 @@ const Dashboard: React.FC = () => {
             {modules.map((module) => (
               <div
                 key={module.id}
+                onClick={() => {
+                  if (module.status !== 'coming-soon' && module.id === 'penta-lend') {
+                    navigate('/pentalend');
+                  }
+                }}
                 className={`w-full rounded-lg transition-all duration-200 ${
                   module.status === 'coming-soon'
                     ? 'bg-gray-50 dark:bg-gray-700/50 opacity-70 cursor-not-allowed'
@@ -475,6 +483,11 @@ const Dashboard: React.FC = () => {
                         {module.status === 'coming-soon' && (
                           <span className="px-2 py-0.5 bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400 text-xs rounded-full">
                             Sắp ra mắt
+                          </span>
+                        )}
+                        {module.badge && (
+                          <span className="px-2 py-0.5 bg-blue-200 dark:bg-blue-800 text-blue-700 dark:text-blue-300 text-xs rounded-full">
+                            {module.badge}
                           </span>
                         )}
                       </div>
@@ -603,30 +616,34 @@ const Dashboard: React.FC = () => {
                   {selectedAsset !== 'PenGx' && ` • Đang xem ${selectedAsset}`}
                 </p>
               </div>
-              
-              <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
-                {(['overview', 'trading', 'dca'] as TabType[]).map(tab => {
-                  const tabLabels = {
-                    overview: 'Tổng quan',
-                    trading: 'Giao dịch',
-                    dca: 'DCA'
-                  };
                   
-                  return (
-                    <button
-                      key={tab}
-                      onClick={() => setActiveTab(tab)}
-                      className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                        activeTab === tab
-                          ? 'bg-amber-600 text-white shadow-md'
-                          : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                      }`}
-                    >
-                      <TrendingUp className="h-4 w-4" />
-                      <span>{tabLabels[tab]}</span>
-                    </button>
-                  );
-                })}
+              <div className="flex items-center space-x-4">
+
+                {/* Tab Navigation */}
+                <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                  {(['overview', 'trading', 'dca'] as TabType[]).map(tab => {
+                    const tabLabels = {
+                      overview: 'Tổng quan',
+                      trading: 'Giao dịch',
+                      dca: 'DCA'
+                    };
+                    
+                    return (
+                      <button
+                        key={tab}
+                        onClick={() => setActiveTab(tab)}
+                        className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                          activeTab === tab
+                            ? 'bg-amber-600 text-white shadow-md'
+                            : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                        }`}
+                      >
+                        <TrendingUp className="h-4 w-4" />
+                        <span>{tabLabels[tab]}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>

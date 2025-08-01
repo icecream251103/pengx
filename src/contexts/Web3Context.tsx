@@ -40,7 +40,7 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isCorrectNetwork, setIsCorrectNetwork] = useState(false);
   const [networkId, setNetworkId] = useState<number | null>(null);
   const [balance, setBalance] = useState('0');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Start with loading true
   const [error, setError] = useState<string | null>(null);
   const [kycStatus, setKycStatus] = useState<'none' | 'pending' | 'approved' | 'rejected'>('none');
 
@@ -89,15 +89,15 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       const provider = new BrowserProvider(window.ethereum);
-      const signer = provider.getSigner();
+      const signer = await provider.getSigner();
       const account = accounts[0];
       const network = await provider.getNetwork();
 
       setProvider(provider);
       setSigner(signer);
       setAccount(account);
-      setNetworkId(network.chainId);
-      setIsCorrectNetwork(network.chainId === REQUIRED_NETWORK_ID);
+      setNetworkId(Number(network.chainId));
+      setIsCorrectNetwork(Number(network.chainId) === REQUIRED_NETWORK_ID);
       setIsConnected(true);
 
       // Update balance
@@ -212,11 +212,21 @@ export const Web3Provider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
           const accounts = await window.ethereum.request({ method: 'eth_accounts' });
           if (accounts.length > 0) {
+            // Don't set loading again since connectWallet will handle it
             await connectWallet();
+          } else {
+            // No accounts available, remove stored connection preference
+            localStorage.removeItem('walletConnected');
+            setLoading(false);
           }
         } catch (err) {
           console.warn('Auto-connect failed:', err);
+          localStorage.removeItem('walletConnected');
+          setLoading(false);
         }
+      } else {
+        // No previous connection or no ethereum provider
+        setLoading(false);
       }
     };
 

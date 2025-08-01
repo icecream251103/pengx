@@ -29,7 +29,11 @@ ChartJS.register(
 
 type Timeframe = '1H' | '4H' | '1D' | '1W' | '1M';
 
-const EnhancedChart: React.FC = () => {
+interface EnhancedChartProps {
+  isCompact?: boolean;
+}
+
+const EnhancedChart: React.FC<EnhancedChartProps> = ({ isCompact = false }) => {
   const { currentData, getHistoryForTimeframe, isLoading } = useGoldPrice();
   const [selectedTimeframe, setSelectedTimeframe] = useState<Timeframe>('1D');
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -119,13 +123,12 @@ const EnhancedChart: React.FC = () => {
         type: 'linear',
         display: true,
         grid: {
-          color: 'rgba(0, 0, 0, 0.05)',
-          drawBorder: false
+          color: 'rgba(0, 0, 0, 0.05)'
         },
         ticks: {
           callback: (value) => formatCurrency(value as number),
           font: {
-            size: 11
+            size: isCompact ? 10 : 11
           },
           color: '#6b7280'
         },
@@ -141,9 +144,9 @@ const EnhancedChart: React.FC = () => {
         ticks: {
           maxRotation: 0,
           autoSkip: true,
-          maxTicksLimit: 8,
+          maxTicksLimit: isCompact ? 6 : 8,
           font: {
-            size: 11
+            size: isCompact ? 10 : 11
           },
           color: '#6b7280'
         },
@@ -167,50 +170,54 @@ const EnhancedChart: React.FC = () => {
   const isPositive = priceChange >= 0;
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg ${isFullscreen ? 'fixed inset-4 z-50' : ''}`}>
-      <div className="p-6">
+    <div className="bg-white rounded-xl shadow-lg">
+      <div className={`${isCompact ? 'p-4' : 'p-6'}`}>
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0">
             <div className="flex items-center space-x-2">
-              <BarChart3 className="h-6 w-6 text-amber-600" />
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Biểu đồ giá PenGx</h2>
+              <BarChart3 className="h-5 w-5 sm:h-6 sm:w-6 text-amber-600" />
+              <h2 className={`text-lg sm:text-xl font-bold text-gray-900 ${isCompact ? 'text-base' : ''}`}>
+                {isCompact ? 'PenGx Live Chart' : 'Biểu đồ giá PenGx'}
+              </h2>
             </div>
             
             <div className="flex items-center space-x-2">
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+              <div className={`text-xl sm:text-2xl font-bold text-gray-900 ${isCompact ? 'text-lg' : ''}`}>
                 {formatCurrency(currentData.price)}
               </div>
               <div className={`flex items-center text-sm ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
                 {isPositive ? (
-                  <TrendingUp className="h-4 w-4 mr-1" />
+                  <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                 ) : (
-                  <TrendingDown className="h-4 w-4 mr-1" />
+                  <TrendingDown className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                 )}
                 <span>{formatPercentage(Math.abs(priceChange))}</span>
               </div>
             </div>
           </div>
 
-          <button
-            onClick={() => setIsFullscreen(!isFullscreen)}
-            className="p-2 text-gray-500 hover:text-amber-600 transition-colors"
-          >
-            <Maximize2 className="h-5 w-5" />
-          </button>
+          {!isCompact && (
+            <button
+              onClick={() => setIsFullscreen(!isFullscreen)}
+              className="p-2 text-gray-500 hover:text-amber-600 transition-colors"
+            >
+              <Maximize2 className="h-5 w-5" />
+            </button>
+          )}
         </div>
 
         {/* Timeframe Selector */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
+          <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
             {timeframes.map((timeframe) => (
               <button
                 key={timeframe.key}
                 onClick={() => setSelectedTimeframe(timeframe.key)}
-                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                className={`px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                   selectedTimeframe === timeframe.key
                     ? 'bg-amber-600 text-white'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-amber-600'
+                    : 'text-gray-600 hover:text-amber-600'
                 }`}
               >
                 {timeframe.label}
@@ -218,17 +225,17 @@ const EnhancedChart: React.FC = () => {
             ))}
           </div>
 
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-            <Clock className="h-4 w-4 mr-1" />
-            <span>Real-time data</span>
+          <div className="flex items-center text-xs sm:text-sm text-gray-500">
+            <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+            <span>Real-time</span>
           </div>
         </div>
 
         {/* Chart */}
-        <div className={`${isFullscreen ? 'h-96' : 'h-80'} relative`}>
+        <div className={`${isFullscreen ? 'h-96' : isCompact ? 'h-48 sm:h-64' : 'h-64 sm:h-80'} relative`}>
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+              <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-amber-600"></div>
             </div>
           ) : (
             <Line options={chartOptions} data={chartData} />
@@ -236,32 +243,34 @@ const EnhancedChart: React.FC = () => {
         </div>
 
         {/* Chart Stats */}
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center">
-            <div className="text-sm text-gray-500 dark:text-gray-400">Cao nhất 24h</div>
-            <div className="text-lg font-semibold text-green-600">
-              {formatCurrency(currentData.high24h)}
+        {!isCompact && (
+          <div className="mt-4 sm:mt-6 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            <div className="text-center">
+              <div className="text-xs sm:text-sm text-gray-500">Cao nhất 24h</div>
+              <div className="text-sm sm:text-lg font-semibold text-green-600">
+                {formatCurrency(currentData.high24h)}
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs sm:text-sm text-gray-500">Thấp nhất 24h</div>
+              <div className="text-sm sm:text-lg font-semibold text-red-600">
+                {formatCurrency(currentData.low24h)}
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs sm:text-sm text-gray-500">Tổng giao dịch 24h</div>
+              <div className="text-sm sm:text-lg font-semibold text-gray-900">
+                ${(currentData.volume24h / 1000000).toFixed(2)}M
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs sm:text-sm text-gray-500">Vốn hóa thị trường</div>
+              <div className="text-sm sm:text-lg font-semibold text-gray-900">
+                ${(currentData.marketCap / 1000000).toFixed(2)}M
+              </div>
             </div>
           </div>
-          <div className="text-center">
-            <div className="text-sm text-gray-500 dark:text-gray-400">Thấp nhất 24h</div>
-            <div className="text-lg font-semibold text-red-600">
-              {formatCurrency(currentData.low24h)}
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-sm text-gray-500 dark:text-gray-400">Tổng giao dịch 24h</div>
-            <div className="text-lg font-semibold text-gray-900 dark:text-white">
-              ${(currentData.volume24h / 1000000).toFixed(2)}M
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-sm text-gray-500 dark:text-gray-400">Vốn hóa thị trường</div>
-            <div className="text-lg font-semibold text-gray-900 dark:text-white">
-              ${(currentData.marketCap / 1000000).toFixed(2)}M
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

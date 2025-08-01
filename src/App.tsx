@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, ChevronDown, Shield, BarChart3, Coins, Globe, Github, Twitter, Lock, Zap, Network, Bell, Newspaper, ExternalLink, Building2, Wallet, Database, Boxes, AlertTriangle, Scan } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useWeb3 } from './contexts/Web3Context';
-import SimpleAdvancedChart from './components/SimpleAdvancedChart';
+import EnhancedChart from './components/EnhancedChart';
 import BiometricLogin from './components/BiometricLogin';
 import { motion } from 'framer-motion';
 
@@ -162,12 +162,12 @@ function App() {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <motion.div
-            className="bg-[#181b24] rounded-2xl shadow-xl p-6 w-full max-w-4xl"
+            className="w-full max-w-4xl"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <SimpleAdvancedChart />
+            <EnhancedChart isCompact={true} />
           </motion.div>
         </motion.div>
       </section>

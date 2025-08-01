@@ -158,18 +158,18 @@ const TradingPanel: React.FC = () => {
     : calculateMinimumReceived(outputAmount, slippageTolerance); // Min USD received
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-3">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Giao dịch PenGx</h2>
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 w-full max-w-md mx-auto">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
+        <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white truncate">Giao dịch PenGx</h2>
           {isSandboxMode && (
-            <div className="flex items-center space-x-1 px-2 py-1 bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 rounded-full text-xs font-medium">
-              <TestTube className="h-3 w-3" />
-              <span>Sandbox Mode</span>
+            <div className="flex items-center space-x-1 px-2 py-1 bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
+              <TestTube className="h-3 w-3 flex-shrink-0" />
+              <span>Sandbox</span>
             </div>
           )}
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 flex-shrink-0">
           {isSandboxMode && (
             <button
               onClick={resetSandboxBalance}
@@ -183,17 +183,13 @@ const TradingPanel: React.FC = () => {
             onClick={() => setShowSettings(!showSettings)}
             className="p-2 text-gray-500 hover:text-amber-600 transition-colors"
           >
-            <Settings className="h-5 w-5" />
+            <Settings className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </div>
       </div>
 
-      {/* Portfolio Balance Display */}
-      <div className={`mb-6 p-4 rounded-lg border ${
-        isSandboxMode 
-          ? 'bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 border-amber-200 dark:border-amber-800'
-          : 'bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-800'
-      }`}>
+      {/* Balance Section - Enhanced stable layout */}
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-6">
         <div className="flex items-center justify-between mb-3">
           <h3 className={`text-sm font-semibold ${
             isSandboxMode 
@@ -202,7 +198,7 @@ const TradingPanel: React.FC = () => {
           }`}>
             {isSandboxMode ? 'Danh mục Ảo' : 'Danh mục Tài sản'}
           </h3>
-          <span className={`text-xs ${
+          <span className={`text-xs whitespace-nowrap ${
             isSandboxMode 
               ? 'text-amber-600 dark:text-amber-400' 
               : 'text-blue-600 dark:text-blue-400'
@@ -211,13 +207,13 @@ const TradingPanel: React.FC = () => {
           </span>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <div className="flex items-center space-x-2">
-            <DollarSign className="h-4 w-4 text-green-600" />
-            <div>
-              <div className="text-xs text-gray-600 dark:text-gray-400">
+          <div className="flex items-center space-x-2 min-w-0">
+            <DollarSign className="h-4 w-4 text-green-600 flex-shrink-0" />
+            <div className="min-w-0 flex-1">
+              <div className="text-xs text-gray-600 dark:text-gray-400 truncate">
                 {isSandboxMode ? 'Virtual USD' : 'USD Balance'}
               </div>
-              <div className="font-bold text-gray-900 dark:text-white">
+              <div className="font-bold text-gray-900 dark:text-white truncate">
                 {isSandboxMode 
                   ? formatCurrency(sandboxBalance.virtualUSD)
                   : formatCurrency(usdBalance)
@@ -225,13 +221,13 @@ const TradingPanel: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center space-x-2">
-            <Coins className="h-4 w-4 text-amber-600" />
-            <div>
-              <div className="text-xs text-gray-600 dark:text-gray-400">
+          <div className="flex items-center space-x-2 min-w-0">
+            <Coins className="h-4 w-4 text-amber-600 flex-shrink-0" />
+            <div className="min-w-0 flex-1">
+              <div className="text-xs text-gray-600 dark:text-gray-400 truncate">
                 {isSandboxMode ? 'Virtual PenGx' : 'PenGx Balance'}
               </div>
-              <div className="font-bold text-gray-900 dark:text-white">
+              <div className="font-bold text-gray-900 dark:text-white truncate">
                 {isSandboxMode 
                   ? sandboxBalance.virtualTokens.toFixed(6)
                   : pengxBalance.toFixed(6)
@@ -240,30 +236,28 @@ const TradingPanel: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Portfolio Performance Summary (Sandbox Only) */}
+      </div>      {/* Portfolio Performance Summary (Sandbox Only) - Enhanced stable layout */}
       {isSandboxMode && sandboxBalance.virtualTokens > 0 && (
         <div className="mb-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/10 dark:to-orange-900/10 rounded-lg border border-amber-200 dark:border-amber-800">
           <h4 className="text-sm font-medium text-amber-800 dark:text-amber-400 mb-3">
             📊 Hiệu suất Danh mục
           </h4>
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <div className="text-xs text-amber-600 dark:text-amber-400 mb-1">Tổng đầu tư</div>
-              <div className="font-semibold text-amber-900 dark:text-amber-300">
+            <div className="min-w-0">
+              <div className="text-xs text-amber-600 dark:text-amber-400 mb-1 truncate">Tổng đầu tư</div>
+              <div className="font-semibold text-amber-900 dark:text-amber-300 truncate">
                 {formatCurrency(INITIAL_VIRTUAL_USD - sandboxBalance.virtualUSD)}
               </div>
             </div>
-            <div>
-              <div className="text-xs text-amber-600 dark:text-amber-400 mb-1">Giá trị hiện tại</div>
-              <div className="font-semibold text-amber-900 dark:text-amber-300">
+            <div className="min-w-0">
+              <div className="text-xs text-amber-600 dark:text-amber-400 mb-1 truncate">Giá trị hiện tại</div>
+              <div className="font-semibold text-amber-900 dark:text-amber-300 truncate">
                 {formatCurrency(sandboxBalance.virtualTokens * currentData.price + sandboxBalance.virtualUSD)}
               </div>
             </div>
-            <div>
-              <div className="text-xs text-amber-600 dark:text-amber-400 mb-1">Lãi/Lỗ tổng</div>
-              <div className={`font-semibold ${
+            <div className="min-w-0">
+              <div className="text-xs text-amber-600 dark:text-amber-400 mb-1 truncate">Lãi/Lỗ tổng</div>
+              <div className={`font-semibold truncate ${
                 (sandboxBalance.virtualTokens * currentData.price + sandboxBalance.virtualUSD - INITIAL_VIRTUAL_USD) >= 0 
                   ? 'text-green-600' 
                   : 'text-red-600'
@@ -276,9 +270,9 @@ const TradingPanel: React.FC = () => {
                 })()}
               </div>
             </div>
-            <div>
-              <div className="text-xs text-amber-600 dark:text-amber-400 mb-1">Giá mua TB</div>
-              <div className="font-semibold text-amber-900 dark:text-amber-300">
+            <div className="min-w-0">
+              <div className="text-xs text-amber-600 dark:text-amber-400 mb-1 truncate">Giá mua TB</div>
+              <div className="font-semibold text-amber-900 dark:text-amber-300 truncate">
                 {(() => {
                   const totalInvested = INITIAL_VIRTUAL_USD - sandboxBalance.virtualUSD;
                   const avgPrice = sandboxBalance.virtualTokens > 0 ? totalInvested / sandboxBalance.virtualTokens : 0;
@@ -290,14 +284,14 @@ const TradingPanel: React.FC = () => {
         </div>
       )}
 
-      {/* Settings Panel */}
+      {/* Settings Panel - Enhanced stable layout */}
       {showSettings && (
         <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
           <div className="flex items-center justify-between mb-3">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex-1 min-w-0">
               Dung sai trượt giá
             </label>
-            <span className="text-sm text-gray-500">{slippageTolerance}%</span>
+            <span className="text-sm text-gray-500 whitespace-nowrap ml-2">{slippageTolerance}%</span>
           </div>
           <div className="flex space-x-2 mb-3">
             {[0.1, 0.5, 1.0].map((value) => (
@@ -326,11 +320,11 @@ const TradingPanel: React.FC = () => {
         </div>
       )}
 
-      {/* Trade Type Selector */}
-      <div className="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1 mb-6">
+      {/* Trade Type Selector - Enhanced stable layout */}
+      <div className="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1 mb-4 sm:mb-6">
         <button
           onClick={() => setTradeType('mint')}
-          className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+          className={`flex-1 py-2 px-3 sm:px-4 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
             tradeType === 'mint'
               ? 'bg-amber-600 text-white'
               : 'text-gray-600 dark:text-gray-300'
@@ -340,7 +334,7 @@ const TradingPanel: React.FC = () => {
         </button>
         <button
           onClick={() => setTradeType('redeem')}
-          className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+          className={`flex-1 py-2 px-3 sm:px-4 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
             tradeType === 'redeem'
               ? 'bg-amber-600 text-white'
               : 'text-gray-600 dark:text-gray-300'
@@ -350,14 +344,14 @@ const TradingPanel: React.FC = () => {
         </button>
       </div>
 
-      {/* Input Section */}
+      {/* Input Section - Enhanced responsive and stable layout */}
       <div className="space-y-4 mb-6">
         <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
           <div className="flex items-center justify-between mb-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {tradeType === 'mint' ? 'Bạn trả' : 'Bạn bán'}
             </label>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-gray-500 truncate">
               {isSandboxMode ? 'Virtual ' : ''}Balance: {(() => {
                 const balance = getCurrentBalance();
                 return tradeType === 'mint' 
@@ -367,28 +361,28 @@ const TradingPanel: React.FC = () => {
             </span>
           </div>
           
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center">
             <input
               type="number"
               value={amount}
               onChange={(e) => handleAmountChange(e.target.value)}
               placeholder="0.00"
-              className="flex-1 bg-transparent text-2xl font-semibold text-gray-900 dark:text-white placeholder-gray-400 border-none outline-none"
+              className="flex-1 bg-transparent text-2xl font-semibold text-gray-900 dark:text-white placeholder-gray-400 border-none outline-none min-w-0 pr-3"
             />
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 flex-shrink-0">
               <div className="flex items-center space-x-1 text-gray-700 dark:text-gray-300">
                 {tradeType === 'mint' ? (
-                  <DollarSign className="h-5 w-5" />
+                  <DollarSign className="h-5 w-5 flex-shrink-0" />
                 ) : (
-                  <Coins className="h-5 w-5" />
+                  <Coins className="h-5 w-5 flex-shrink-0" />
                 )}
-                <span className="font-medium">
+                <span className="font-medium whitespace-nowrap">
                   {tradeType === 'mint' ? 'USD' : 'PenGx'}
                 </span>
               </div>
               <button
                 onClick={handleMaxClick}
-                className="px-2 py-1 bg-amber-600 text-white text-xs rounded hover:bg-amber-700 transition-colors"
+                className="px-2 py-1 bg-amber-600 text-white text-xs rounded hover:bg-amber-700 transition-colors whitespace-nowrap flex-shrink-0"
               >
                 MAX
               </button>
@@ -406,28 +400,28 @@ const TradingPanel: React.FC = () => {
           </button>
         </div>
 
-        {/* Output Section */}
+        {/* Output Section - Enhanced responsive and stable layout */}
         <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
           <div className="flex items-center justify-between mb-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {tradeType === 'mint' ? 'Bạn nhận' : 'Bạn được'}
             </label>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-gray-500 whitespace-nowrap">
               Tỷ giá: {formatCurrency(currentData.price)}
             </span>
           </div>
           
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-semibold text-gray-900 dark:text-white">
+            <div className="text-2xl font-semibold text-gray-900 dark:text-white min-w-0 flex-1 truncate">
               {outputAmount.toFixed(6)}
             </div>
-            <div className="flex items-center space-x-1 text-gray-700 dark:text-gray-300">
+            <div className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 flex-shrink-0 ml-3">
               {tradeType === 'mint' ? (
-                <Coins className="h-5 w-5" />
+                <Coins className="h-5 w-5 flex-shrink-0" />
               ) : (
-                <DollarSign className="h-5 w-5" />
+                <DollarSign className="h-5 w-5 flex-shrink-0" />
               )}
-              <span className="font-medium">
+              <span className="font-medium whitespace-nowrap">
                 {tradeType === 'mint' ? 'PenGx' : 'USD'}
               </span>
             </div>

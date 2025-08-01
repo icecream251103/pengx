@@ -822,27 +822,27 @@ const PentaLend: React.FC = () => {
   };
 
   const OverviewTab = () => (
-    <div className="space-y-8">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl p-8 text-white">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div>
-            <h1 className="text-4xl font-bold mb-4">PentaLend</h1>
-            <p className="text-xl mb-6 opacity-90 dark:opacity-95">
+    <div className="space-y-6 sm:space-y-8">
+      {/* Hero Section - Enhanced responsive */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 text-white">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8 items-center">
+          <div className="space-y-4 lg:space-y-6">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">PentaLend</h1>
+            <p className="text-base sm:text-lg lg:text-xl opacity-90 dark:opacity-95 leading-relaxed">
               Nền tảng cho vay P2P được tự động hóa bằng AI, phục vụ sinh viên, nhân viên và doanh nghiệp nhỏ tại Việt Nam
             </p>
-            <div className="flex flex-wrap gap-4">
-              <div className="bg-white/20 dark:bg-white/30 rounded-lg p-4 backdrop-blur">
-                <div className="text-2xl font-bold">Multi-Asset</div>
-                <div className="text-sm opacity-80 dark:opacity-90">USD • ETH • BTC • PenGx</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+              <div className="bg-white/20 dark:bg-white/30 rounded-lg p-3 sm:p-4 backdrop-blur">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">Multi-Asset</div>
+                <div className="text-xs sm:text-sm opacity-80 dark:opacity-90">USD • ETH • BTC • PenGx</div>
               </div>
-              <div className="bg-white/20 dark:bg-white/30 rounded-lg p-4 backdrop-blur">
-                <div className="text-2xl font-bold">97.5%</div>
-                <div className="text-sm opacity-80 dark:opacity-90">Tỷ lệ thành công</div>
+              <div className="bg-white/20 dark:bg-white/30 rounded-lg p-3 sm:p-4 backdrop-blur">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">97.5%</div>
+                <div className="text-xs sm:text-sm opacity-80 dark:opacity-90">Tỷ lệ thành công</div>
               </div>
-              <div className="bg-white/20 dark:bg-white/30 rounded-lg p-4 backdrop-blur">
-                <div className="text-2xl font-bold">156</div>
-                <div className="text-sm opacity-80 dark:opacity-90">Khoản vay hoàn thành</div>
+              <div className="bg-white/20 dark:bg-white/30 rounded-lg p-3 sm:p-4 backdrop-blur">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">156</div>
+                <div className="text-xs sm:text-sm opacity-80 dark:opacity-90">Khoản vay hoàn thành</div>
               </div>
             </div>
           </div>
@@ -865,63 +865,63 @@ const PentaLend: React.FC = () => {
         </div>
       </div>
 
-      {/* Key Features */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow">
-          <Zap className="h-12 w-12 text-blue-600 dark:text-blue-400 mb-4" />
-          <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Tự động hoàn toàn</h3>
-          <p className="text-gray-600 dark:text-gray-300">
+      {/* Key Features - Enhanced responsive grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow">
+          <Zap className="h-10 w-10 sm:h-12 sm:w-12 text-blue-600 dark:text-blue-400 mb-3 sm:mb-4" />
+          <h3 className="text-lg sm:text-xl font-semibold mb-2 text-gray-900 dark:text-white">Tự động hoàn toàn</h3>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
             Toàn bộ quy trình từ đánh giá tín dụng đến quản lý khoản vay được tự động hóa bằng AI và Smart Contracts
           </p>
         </div>
-        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow">
-          <Target className="h-12 w-12 text-green-600 dark:text-green-400 mb-4" />
-          <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Phục vụ đối tượng đặc biệt</h3>
-          <p className="text-gray-600 dark:text-gray-300">
+        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow">
+          <Target className="h-10 w-10 sm:h-12 sm:w-12 text-green-600 dark:text-green-400 mb-3 sm:mb-4" />
+          <h3 className="text-lg sm:text-xl font-semibold mb-2 text-gray-900 dark:text-white">Phục vụ đối tượng đặc biệt</h3>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
             Tập trung vào sinh viên, nhân viên, công nhân và doanh nghiệp nhỏ - những nhóm khó tiếp cận tín dụng truyền thống
           </p>
         </div>
-        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow">
-          <Shield className="h-12 w-12 text-purple-600 dark:text-purple-400 mb-4" />
-          <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Minh bạch & Công bằng</h3>
-          <p className="text-gray-600 dark:text-gray-300">
+        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl dark:hover:shadow-2xl transition-shadow md:col-span-2 xl:col-span-1">
+          <Shield className="h-10 w-10 sm:h-12 sm:w-12 text-purple-600 dark:text-purple-400 mb-3 sm:mb-4" />
+          <h3 className="text-lg sm:text-xl font-semibold mb-2 text-gray-900 dark:text-white">Minh bạch & Công bằng</h3>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
             Điểm tín dụng và thông tin khoản vay được hiển thị minh bạch, tạo sân chơi bình đẳng cho tất cả
           </p>
         </div>
       </div>
 
-      {/* Live Loan Proposals */}
-      <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Đề xuất vay đang hoạt động</h2>
-          <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
-            <Activity className="h-4 w-4" />
+      {/* Live Loan Proposals - Enhanced responsive */}
+      <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Đề xuất vay đang hoạt động</h2>
+          <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+            <Activity className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
             <span>Cập nhật realtime</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
           {loanProposals.slice(0, 3).map((loan) => (
             <motion.div
               key={loan.id}
               whileHover={{ scale: 1.02 }}
               onClick={() => setSelectedLoan(loan)}
-              className="border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg p-4 hover:shadow-md dark:hover:shadow-xl transition-all cursor-pointer"
+              className="border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg p-3 sm:p-4 hover:shadow-md dark:hover:shadow-xl transition-all cursor-pointer"
             >
               <div className="flex justify-between items-start mb-3">
-                <div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 truncate">
                     {getBorrowerTypeLabel(loan.borrowerType)} | {loan.currency}
                   </div>
-                  <div className="font-bold text-lg text-gray-900 dark:text-white">{formatCurrency(loan.amount, loan.currency)}</div>
+                  <div className="font-bold text-base sm:text-lg text-gray-900 dark:text-white truncate">{formatCurrency(loan.amount, loan.currency)}</div>
                 </div>
-                <div className={`px-2 py-1 rounded-full text-xs font-semibold ${getCreditGradeColor(loan.creditGrade)}`}>
+                <div className={`px-2 py-1 rounded-full text-xs font-semibold flex-shrink-0 ${getCreditGradeColor(loan.creditGrade)}`}>
                   {loan.creditGrade}
                 </div>
               </div>
-              <div className="space-y-2 text-sm">
+              <div className="space-y-2 text-xs sm:text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-300">Mục đích:</span>
-                  <span className="text-gray-900 dark:text-white">{loan.purpose}</span>
+                  <span className="text-gray-900 dark:text-white truncate ml-2">{loan.purpose}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-300">Lãi suất:</span>
@@ -933,7 +933,7 @@ const PentaLend: React.FC = () => {
                 </div>
               </div>
               <div className="mt-4">
-                <div className="flex justify-between text-sm mb-1">
+                <div className="flex justify-between text-xs sm:text-sm mb-1">
                   <span className="text-gray-600 dark:text-gray-300">Tiến độ gây quỹ</span>
                   <span className="text-gray-900 dark:text-white">{Math.round((loan.fundedAmount / loan.amount) * 100)}%</span>
                 </div>
@@ -1744,61 +1744,61 @@ const PentaLend: React.FC = () => {
     }, [loanProposals, gradeFilter, currencyFilter, professionFilter]);
 
     return (
-      <div className="space-y-8">
-        {/* Stable Lender Dashboard */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg">
-            <div className="flex items-center space-x-3 mb-2">
-              <Wallet className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-              <div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">Multi-Asset</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Tổng đã cho vay</div>
+      <div className="space-y-6 sm:space-y-8">
+        {/* Stable Lender Dashboard - Enhanced responsive */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+          <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-3 sm:p-4 lg:p-6 shadow-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 mb-2">
+              <Wallet className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 dark:text-blue-400 mb-2 sm:mb-0 flex-shrink-0" />
+              <div className="min-w-0">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white truncate">Multi-Asset</div>
+                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Tổng đã cho vay</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg">
-            <div className="flex items-center space-x-3 mb-2">
-              <TrendingUp className="h-8 w-8 text-green-600 dark:text-green-400" />
-              <div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">{lenderProfile.successRate}%</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Tỷ lệ thành công</div>
+          <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-3 sm:p-4 lg:p-6 shadow-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 mb-2">
+              <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8 text-green-600 dark:text-green-400 mb-2 sm:mb-0 flex-shrink-0" />
+              <div className="min-w-0">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white">{lenderProfile.successRate}%</div>
+                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Tỷ lệ thành công</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg">
-            <div className="flex items-center space-x-3 mb-2">
-              <FileText className="h-8 w-8 text-purple-600 dark:text-purple-400" />
-              <div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">{lenderProfile.loansCount}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Khoản vay đã tài trợ</div>
+          <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-3 sm:p-4 lg:p-6 shadow-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 mb-2">
+              <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600 dark:text-purple-400 mb-2 sm:mb-0 flex-shrink-0" />
+              <div className="min-w-0">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white">{lenderProfile.loansCount}</div>
+                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Khoản vay đã tài trợ</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg">
-            <div className="flex items-center space-x-3 mb-2">
-              <Star className="h-8 w-8 text-yellow-600 dark:text-yellow-400" />
-              <div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">{lenderProfile.rating}/5</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Đánh giá cho vay</div>
+          <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-3 sm:p-4 lg:p-6 shadow-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 mb-2">
+              <Star className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-600 dark:text-yellow-400 mb-2 sm:mb-0 flex-shrink-0" />
+              <div className="min-w-0">
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white">{lenderProfile.rating}/5</div>
+                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Đánh giá cho vay</div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Optimized Available Loan Proposals */}
-        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        {/* Optimized Available Loan Proposals - Enhanced responsive */}
+        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg">
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
               Đề xuất vay khả dụng ({filteredLoans.length})
             </h2>
-            <div className="flex space-x-2">
+            <div className="flex flex-col sm:flex-row gap-2 sm:space-x-2">
               <select 
                 value={gradeFilter}
                 onChange={(e) => setGradeFilter(e.target.value)}
-                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                className="px-2 sm:px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-sm"
               >
                 <option value="all">Tất cả xếp hạng</option>
                 <option value="A">A+ và A</option>
@@ -1808,7 +1808,7 @@ const PentaLend: React.FC = () => {
               <select 
                 value={currencyFilter}
                 onChange={(e) => setCurrencyFilter(e.target.value)}
-                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                className="px-2 sm:px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-sm"
               >
                 <option value="all">Tất cả tiền tệ</option>
                 <option value="USD">USD</option>
@@ -1820,7 +1820,7 @@ const PentaLend: React.FC = () => {
               <select 
                 value={professionFilter}
                 onChange={(e) => setProfessionFilter(e.target.value)}
-                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                className="px-2 sm:px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-sm"
               >
                 <option value="all">Tất cả nghề nghiệp</option>
                 <option value="student">Sinh viên</option>
@@ -1832,82 +1832,87 @@ const PentaLend: React.FC = () => {
 
           {/* Error display */}
           {loanError && (
-            <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+            <div className="mb-4 p-3 sm:p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
               <div className="flex items-center space-x-2">
-                <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400" />
-                <span className="text-red-700 dark:text-red-300">{loanError}</span>
+                <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+                <span className="text-sm sm:text-base text-red-700 dark:text-red-300">{loanError}</span>
               </div>
             </div>
           )}
 
           {/* Loading indicator */}
           {isLoadingLoans && (
-            <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+            <div className="mb-4 p-3 sm:p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
               <div className="flex items-center space-x-2">
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
-                <span className="text-blue-700 dark:text-blue-300">Đang tải dữ liệu khoản vay...</span>
+                <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-blue-600 flex-shrink-0"></div>
+                <span className="text-sm sm:text-base text-blue-700 dark:text-blue-300">Đang tải dữ liệu khoản vay...</span>
               </div>
             </div>
           )}
 
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {filteredLoans.length > 0 ? (
               filteredLoans.map((loan) => (
                 <motion.div
                   key={loan.id}
-                  whileHover={{ scale: 1.005 }} // Reduced scale for smoother animation
-                  transition={{ duration: 0.2 }} // Added smooth transition
-                  className="border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg p-6 hover:shadow-md dark:hover:shadow-xl transition-all cursor-pointer"
+                  whileHover={{ scale: 1.005 }}
+                  transition={{ duration: 0.2 }}
+                  className="border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 hover:shadow-md dark:hover:shadow-xl transition-all cursor-pointer"
                   onClick={() => setSelectedLoan(loan)}
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 items-center">
+                    {/* Borrower Info */}
                     <div className="lg:col-span-2">
                       <div className="flex items-center space-x-3">
-                        <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold ${
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 ${
                           loan.borrowerType === 'student' ? 'bg-blue-500' :
                           loan.borrowerType === 'employee' ? 'bg-green-500' :
                           loan.borrowerType === 'worker' ? 'bg-purple-500' : 'bg-orange-500'
                         }`}>
                           {getBorrowerTypeLabel(loan.borrowerType).charAt(0)}
                         </div>
-                        <div>
-                          <div className="font-semibold text-gray-900 dark:text-white">{loan.borrower}</div>
-                          <div className="text-sm text-gray-600 dark:text-gray-300">
+                        <div className="min-w-0 flex-1">
+                          <div className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white truncate">{loan.borrower}</div>
+                          <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
                             {getBorrowerTypeLabel(loan.borrowerType)}
                           </div>
                         </div>
                       </div>
                     </div>
 
+                    {/* Amount & Term */}
                     <div>
-                      <div className="font-bold text-lg text-gray-900 dark:text-white">
+                      <div className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
                         {formatCurrency(loan.amount, loan.currency)}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
                         {loan.term} tháng | {loan.currency}
                       </div>
                     </div>
 
+                    {/* Credit Grade */}
                     <div>
-                      <div className={`inline-flex px-3 py-1 rounded-full text-sm font-semibold ${getCreditGradeColor(loan.creditGrade)}`}>
+                      <div className={`inline-flex px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold ${getCreditGradeColor(loan.creditGrade)}`}>
                         {loan.creditGrade} ({loan.creditScore})
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mt-1">
                         Rủi ro: {loan.riskLevel === 'low' ? 'Thấp' : loan.riskLevel === 'medium' ? 'Trung bình' : 'Cao'}
                       </div>
                     </div>
 
-                    <div>
-                      <div className="font-bold text-green-600 dark:text-green-400">{loan.interestRate}%</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">Lãi suất/năm</div>
+                    {/* Interest Rate */}
+                    <div className="text-center">
+                      <div className="font-bold text-base sm:text-lg text-green-600 dark:text-green-400">{loan.interestRate}%</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Lãi suất/năm</div>
                     </div>
 
+                    {/* Progress */}
                     <div>
                       <div className="text-center">
-                        <div className="font-semibold text-gray-900 dark:text-white">
+                        <div className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">
                           {Math.round((loan.fundedAmount / loan.amount) * 100)}%
                         </div>
-                        <div className="w-20 bg-gray-200 dark:bg-gray-600 rounded-full h-2 mx-auto mt-1">
+                        <div className="w-16 sm:w-20 bg-gray-200 dark:bg-gray-600 rounded-full h-2 mx-auto mt-1">
                           <div 
                             className="bg-blue-600 dark:bg-blue-500 h-2 rounded-full transition-all duration-500"
                             style={{ width: `${Math.min((loan.fundedAmount / loan.amount) * 100, 100)}%` }}
@@ -1916,10 +1921,11 @@ const PentaLend: React.FC = () => {
                       </div>
                     </div>
 
+                    {/* Action Button */}
                     <div className="text-center">
                       {loan.status === 'funding' ? (
                         <button 
-                          className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
+                          className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors text-xs sm:text-sm"
                           onClick={(e) => {
                             e.stopPropagation();
                             // Handle funding action
@@ -1928,25 +1934,26 @@ const PentaLend: React.FC = () => {
                           Tài trợ
                         </button>
                       ) : loan.status === 'funded' ? (
-                        <span className="text-green-600 dark:text-green-400 font-semibold">Đã tài trợ</span>
+                        <span className="text-green-600 dark:text-green-400 font-semibold text-xs sm:text-sm">Đã tài trợ</span>
                       ) : (
-                        <span className="text-gray-500 dark:text-gray-400">Hoàn thành</span>
+                        <span className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Hoàn thành</span>
                       )}
                     </div>
                   </div>
 
+                  {/* Additional Info */}
                   <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
-                    <div className="flex justify-between items-center">
-                      <div className="text-sm text-gray-600 dark:text-gray-300">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
                         Mục đích: <span className="font-medium text-gray-900 dark:text-white">{loan.purpose}</span>
                       </div>
-                      <div className="flex items-center space-x-4 text-sm">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 gap-2 sm:gap-0 text-xs sm:text-sm">
                         <div className="flex items-center space-x-1">
-                          <Link className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                          <Link className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                           <span className="text-gray-600 dark:text-gray-300">Dữ liệu on-chain đã xác minh</span>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <Shield className="h-4 w-4 text-green-600 dark:text-green-400" />
+                          <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
                           <span className="text-gray-600 dark:text-gray-300">KYC hoàn tất</span>
                         </div>
                       </div>
@@ -1955,11 +1962,11 @@ const PentaLend: React.FC = () => {
                 </motion.div>
               ))
             ) : (
-              <div className="text-center py-12">
+              <div className="text-center py-8 sm:py-12">
                 <div className="text-gray-400 dark:text-gray-500 mb-4">
-                  <FileText className="h-16 w-16 mx-auto mb-4" />
-                  <p className="text-lg font-medium">Không tìm thấy khoản vay phù hợp</p>
-                  <p className="text-sm">Thử thay đổi bộ lọc để xem thêm khoản vay</p>
+                  <FileText className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-4" />
+                  <p className="text-base sm:text-lg font-medium">Không tìm thấy khoản vay phù hợp</p>
+                  <p className="text-xs sm:text-sm">Thử thay đổi bộ lọc để xem thêm khoản vay</p>
                 </div>
               </div>
             )}
@@ -1970,32 +1977,32 @@ const PentaLend: React.FC = () => {
   };
 
   const ProfileTab = () => (
-    <div className="space-y-8">
-      {/* Credit Score Overview */}
-      <div className="bg-gradient-to-r from-green-500 to-blue-600 dark:from-green-600 dark:to-blue-700 rounded-xl p-8 text-white">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-          <div className="lg:col-span-2">
-            <h2 className="text-3xl font-bold mb-4">Hồ sơ tín dụng của bạn</h2>
-            <p className="text-xl opacity-90 dark:opacity-95 mb-6">
+    <div className="space-y-6 sm:space-y-8">
+      {/* Credit Score Overview - Enhanced responsive */}
+      <div className="bg-gradient-to-r from-green-500 to-blue-600 dark:from-green-600 dark:to-blue-700 rounded-xl p-4 sm:p-6 lg:p-8 text-white">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-center">
+          <div className="lg:col-span-2 order-2 lg:order-1">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Hồ sơ tín dụng của bạn</h2>
+            <p className="text-lg sm:text-xl opacity-90 dark:opacity-95 mb-4 sm:mb-6">
               Điểm tín dụng được tính toán bằng AI dựa trên nhiều nguồn dữ liệu đáng tin cậy
             </p>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white/20 dark:bg-white/30 rounded-lg p-4 backdrop-blur">
-                <div className="text-3xl font-bold">750</div>
-                <div className="text-sm opacity-80 dark:opacity-90">Điểm tín dụng hiện tại</div>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="bg-white/20 dark:bg-white/30 rounded-lg p-3 sm:p-4 backdrop-blur">
+                <div className="text-2xl sm:text-3xl font-bold">750</div>
+                <div className="text-xs sm:text-sm opacity-80 dark:opacity-90">Điểm tín dụng hiện tại</div>
               </div>
-              <div className="bg-white/20 dark:bg-white/30 rounded-lg p-4 backdrop-blur">
-                <div className="text-3xl font-bold">A</div>
-                <div className="text-sm opacity-80 dark:opacity-90">Xếp hạng tín dụng</div>
+              <div className="bg-white/20 dark:bg-white/30 rounded-lg p-3 sm:p-4 backdrop-blur">
+                <div className="text-2xl sm:text-3xl font-bold">A</div>
+                <div className="text-xs sm:text-sm opacity-80 dark:opacity-90">Xếp hạng tín dụng</div>
               </div>
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center order-1 lg:order-2">
             <div className="relative">
-              <div className="w-32 h-32 rounded-full border-8 border-white/30 flex items-center justify-center">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-8 border-white/30 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="text-3xl font-bold">750</div>
-                  <div className="text-sm">/ 850</div>
+                  <div className="text-2xl sm:text-3xl font-bold">750</div>
+                  <div className="text-xs sm:text-sm">/ 850</div>
                 </div>
               </div>
               <div className="absolute inset-0 rounded-full border-8 border-transparent border-t-white animate-pulse"></div>
@@ -2004,12 +2011,12 @@ const PentaLend: React.FC = () => {
         </div>
       </div>
 
-      {/* Credit History and Factors */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Credit History and Factors - Enhanced responsive */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Credit Factors */}
-        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg">
-          <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">Các yếu tố ảnh hưởng điểm tín dụng</h3>
-          <div className="space-y-4">
+        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg">
+          <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">Các yếu tố ảnh hưởng điểm tín dụng</h3>
+          <div className="space-y-3 sm:space-y-4">
             {[
               { factor: 'Lịch sử thanh toán', score: 95, weight: '35%', color: 'green' },
               { factor: 'Tài sản on-chain', score: 88, weight: '25%', color: 'blue' },
@@ -2018,10 +2025,10 @@ const PentaLend: React.FC = () => {
               { factor: 'Hành vi ứng dụng', score: 75, weight: '10%', color: 'yellow' }
             ].map((item, index) => (
               <div key={index} className="flex items-center justify-between">
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <div className="flex justify-between mb-1">
-                    <span className="font-medium text-gray-900 dark:text-white">{item.factor}</span>
-                    <span className="text-sm text-gray-600 dark:text-gray-300">{item.weight}</span>
+                    <span className="font-medium text-gray-900 dark:text-white text-sm sm:text-base truncate">{item.factor}</span>
+                    <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 ml-2 flex-shrink-0">{item.weight}</span>
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                     <div 
@@ -2030,8 +2037,8 @@ const PentaLend: React.FC = () => {
                     ></div>
                   </div>
                 </div>
-                <div className="ml-4 text-right">
-                  <div className="font-bold text-gray-900 dark:text-white">{item.score}</div>
+                <div className="ml-3 sm:ml-4 text-right flex-shrink-0">
+                  <div className="font-bold text-gray-900 dark:text-white text-sm sm:text-base">{item.score}</div>
                   <div className="text-xs text-gray-600 dark:text-gray-300">điểm</div>
                 </div>
               </div>
@@ -2040,29 +2047,29 @@ const PentaLend: React.FC = () => {
         </div>
 
         {/* Borrowing History */}
-        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg">
-          <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">Lịch sử vay</h3>
-          <div className="space-y-4">
+        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg">
+          <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">Lịch sử vay</h3>
+          <div className="space-y-3 sm:space-y-4">
             {[
               { date: '2024-10', amount: 15000, currency: 'USD', status: 'completed', onTime: true },
               { date: '2024-07', amount: 3.2, currency: 'ETH', status: 'completed', onTime: true },
               { date: '2024-03', amount: 0.8, currency: 'BTC', status: 'completed', onTime: false }
             ].map((loan, index) => (
-              <div key={index} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div>
-                  <div className="font-medium text-gray-900 dark:text-white">{formatCurrency(loan.amount, loan.currency)}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">{loan.date}</div>
+              <div key={index} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-lg gap-2 sm:gap-0">
+                <div className="min-w-0 flex-1">
+                  <div className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">{formatCurrency(loan.amount, loan.currency)}</div>
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{loan.date}</div>
                 </div>
                 <div className="flex items-center space-x-2">
                   {loan.onTime ? (
                     <>
-                      <CheckCircle className="h-5 w-5 text-green-500 dark:text-green-400" />
-                      <span className="text-green-600 dark:text-green-400 font-medium">Thanh toán đúng hạn</span>
+                      <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 dark:text-green-400 flex-shrink-0" />
+                      <span className="text-green-600 dark:text-green-400 font-medium text-xs sm:text-sm">Thanh toán đúng hạn</span>
                     </>
                   ) : (
                     <>
-                      <AlertCircle className="h-5 w-5 text-yellow-500 dark:text-yellow-400" />
-                      <span className="text-yellow-600 dark:text-yellow-400 font-medium">Thanh toán muộn 3 ngày</span>
+                      <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500 dark:text-yellow-400 flex-shrink-0" />
+                      <span className="text-yellow-600 dark:text-yellow-400 font-medium text-xs sm:text-sm">Thanh toán muộn 3 ngày</span>
                     </>
                   )}
                 </div>
@@ -2070,12 +2077,12 @@ const PentaLend: React.FC = () => {
             ))}
           </div>
 
-          <div className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+          <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
             <div className="flex items-center space-x-2 mb-2">
-              <Award className="h-5 w-5 text-green-600" />
-              <span className="font-semibold text-green-800 dark:text-green-300">Thành tích tốt</span>
+              <Award className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0" />
+              <span className="font-semibold text-green-800 dark:text-green-300 text-sm sm:text-base">Thành tích tốt</span>
             </div>
-            <ul className="text-sm text-green-700 dark:text-green-400 space-y-1">
+            <ul className="text-xs sm:text-sm text-green-700 dark:text-green-400 space-y-1">
               <li>• Chuỗi thanh toán đúng hạn: 24 tháng</li>
               <li>• Không có khoản nợ xấu</li>
               <li>• Tỷ lệ thanh toán đúng hạn: 94%</li>
@@ -2084,25 +2091,25 @@ const PentaLend: React.FC = () => {
         </div>
       </div>
 
-      {/* Recommendations */}
-      <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 shadow-lg">
-        <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">Khuyến nghị cải thiện điểm tín dụng</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border dark:border-blue-800/30 rounded-lg">
+      {/* Recommendations - Enhanced responsive */}
+      <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg">
+        <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">Khuyến nghị cải thiện điểm tín dụng</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div className="p-3 sm:p-4 bg-blue-50 dark:bg-blue-900/20 border dark:border-blue-800/30 rounded-lg">
             <div className="flex items-center space-x-2 mb-2">
-              <TrendingUp className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-              <span className="font-semibold text-blue-800 dark:text-blue-300">Tăng tài sản crypto</span>
+              <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+              <span className="font-semibold text-blue-800 dark:text-blue-300 text-sm sm:text-base">Tăng tài sản crypto</span>
             </div>
-            <p className="text-sm text-blue-700 dark:text-blue-400">
+            <p className="text-xs sm:text-sm text-blue-700 dark:text-blue-400">
               Nắm giữ thêm ETH, BTC hoặc PenGx có thể cải thiện điểm tín dụng lên +15 điểm
             </p>
           </div>
-          <div className="p-4 bg-green-50 dark:bg-green-900/20 border dark:border-green-800/30 rounded-lg">
+          <div className="p-3 sm:p-4 bg-green-50 dark:bg-green-900/20 border dark:border-green-800/30 rounded-lg">
             <div className="flex items-center space-x-2 mb-2">
-              <Clock className="h-5 w-5 text-green-600 dark:text-green-400" />
-              <span className="font-semibold text-green-800 dark:text-green-300">Duy trì thanh toán đúng hạn</span>
+              <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+              <span className="font-semibold text-green-800 dark:text-green-300 text-sm sm:text-base">Duy trì thanh toán đúng hạn</span>
             </div>
-            <p className="text-sm text-green-700 dark:text-green-400">
+            <p className="text-xs sm:text-sm text-green-700 dark:text-green-400">
               Tiếp tục thanh toán đúng hạn để đạt mức điểm A+ trong 6 tháng tới
             </p>
           </div>
@@ -2202,7 +2209,7 @@ const PentaLend: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4"
         onClick={onClose}
       >
         <motion.div
@@ -2210,51 +2217,51 @@ const PentaLend: React.FC = () => {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white dark:bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+          className="bg-white dark:bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl"
         >
-          {/* Header */}
-          <div className="sticky top-0 bg-white dark:bg-gray-800 border-b dark:border-gray-700 px-6 py-4 rounded-t-2xl">
+          {/* Header - Enhanced responsive */}
+          <div className="sticky top-0 bg-white dark:bg-gray-800 border-b dark:border-gray-700 px-4 sm:px-6 py-3 sm:py-4 rounded-t-2xl">
             <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Chi tiết khoản vay</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Thông tin đầy đủ về người vay và khoản vay</p>
+              <div className="min-w-0 flex-1">
+                <h2 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white truncate">Chi tiết khoản vay</h2>
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Thông tin đầy đủ về người vay và khoản vay</p>
               </div>
               <button
                 onClick={onClose}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors flex-shrink-0 ml-2"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
           </div>
 
-          <div className="p-6 space-y-8">
-            {/* Loan Overview */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="p-3 sm:p-6 space-y-6 sm:space-y-8">
+            {/* Loan Overview - Enhanced responsive */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {/* Basic Loan Info */}
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl p-6 border dark:border-gray-600">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Thông tin khoản vay</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Số tiền:</span>
-                    <span className="font-bold text-xl text-gray-900 dark:text-white">{formatCurrency(loan.amount, loan.currency)}</span>
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl p-4 sm:p-6 border dark:border-gray-600">
+                <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gray-900 dark:text-white">Thông tin khoản vay</h3>
+                <div className="space-y-2 sm:space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Số tiền:</span>
+                    <span className="font-bold text-lg sm:text-xl text-gray-900 dark:text-white">{formatCurrency(loan.amount, loan.currency)}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Kỳ hạn:</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">{loan.term} tháng</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Kỳ hạn:</span>
+                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">{loan.term} tháng</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Lãi suất:</span>
-                    <span className="font-bold text-green-600 dark:text-green-400">{loan.interestRate}%/năm</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Lãi suất:</span>
+                    <span className="font-bold text-sm sm:text-base text-green-600 dark:text-green-400">{loan.interestRate}%/năm</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Mục đích:</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">{loan.purpose}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Mục đích:</span>
+                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white text-right">{loan.purpose}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">Trạng thái:</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Trạng thái:</span>
                     <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
                       loan.status === 'funding' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
                       loan.status === 'funded' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
@@ -2267,23 +2274,23 @@ const PentaLend: React.FC = () => {
               </div>
 
               {/* Funding Progress */}
-              <div className="bg-white dark:bg-gray-700 rounded-xl p-6 border dark:border-gray-600">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Tiến độ gây quỹ</h3>
-                <div className="space-y-4">
+              <div className="bg-white dark:bg-gray-700 rounded-xl p-4 sm:p-6 border dark:border-gray-600">
+                <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gray-900 dark:text-white">Tiến độ gây quỹ</h3>
+                <div className="space-y-3 sm:space-y-4">
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-gray-600 dark:text-gray-300">Đã gây được:</span>
-                      <span className="font-bold text-gray-900 dark:text-white">
+                      <span className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Đã gây được:</span>
+                      <span className="font-bold text-sm sm:text-base text-gray-900 dark:text-white">
                         {formatCurrency(loan.fundedAmount, loan.currency)}
                       </span>
                     </div>
-                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
+                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 sm:h-3">
                       <div 
-                        className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-500"
+                        className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 sm:h-3 rounded-full transition-all duration-500"
                         style={{ width: `${Math.min((loan.fundedAmount / loan.amount) * 100, 100)}%` }}
                       ></div>
                     </div>
-                    <div className="flex justify-between mt-1 text-sm">
+                    <div className="flex justify-between mt-1 text-xs sm:text-sm">
                       <span className="text-gray-500 dark:text-gray-400">
                         {Math.round((loan.fundedAmount / loan.amount) * 100)}% hoàn thành
                       </span>
@@ -2311,30 +2318,30 @@ const PentaLend: React.FC = () => {
               </div>
             </div>
 
-            {/* Borrower Profile */}
-            <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-6 text-gray-900 dark:text-white">Hồ sơ người vay</h3>
+            {/* Borrower Profile - Enhanced responsive */}
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-4 sm:p-6">
+              <h3 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6 text-gray-900 dark:text-white">Hồ sơ người vay</h3>
               
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                 {/* Basic Info */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-gray-900 dark:text-white">Thông tin cơ bản</h4>
+                <div className="space-y-3 sm:space-y-4">
+                  <h4 className="font-medium text-sm sm:text-base text-gray-900 dark:text-white">Thông tin cơ bản</h4>
                   <div className="space-y-3">
                     <div className="flex items-center space-x-3">
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold ${
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0 ${
                         loan.borrowerType === 'student' ? 'bg-blue-500' :
                         loan.borrowerType === 'employee' ? 'bg-green-500' :
                         loan.borrowerType === 'worker' ? 'bg-purple-500' : 'bg-orange-500'
                       }`}>
                         {getBorrowerTypeLabel(loan.borrowerType).charAt(0)}
                       </div>
-                      <div>
-                        <div className="font-medium text-gray-900 dark:text-white">{loan.borrower}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-300">{getBorrowerTypeLabel(loan.borrowerType)}</div>
+                      <div className="min-w-0 flex-1">
+                        <div className="font-medium text-sm sm:text-base text-gray-900 dark:text-white truncate">{loan.borrower}</div>
+                        <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{getBorrowerTypeLabel(loan.borrowerType)}</div>
                       </div>
                     </div>
                     
-                    <div className="space-y-2 text-sm">
+                    <div className="space-y-2 text-xs sm:text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600 dark:text-gray-300">Tuổi ví:</span>
                         <span className="text-gray-900 dark:text-white">{borrowerProfile.walletAge} tháng</span>
@@ -2356,19 +2363,19 @@ const PentaLend: React.FC = () => {
                 </div>
 
                 {/* Credit Assessment */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-gray-900 dark:text-white">Đánh giá tín dụng</h4>
-                  <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
+                  <h4 className="font-medium text-sm sm:text-base text-gray-900 dark:text-white">Đánh giá tín dụng</h4>
+                  <div className="space-y-3 sm:space-y-4">
                     <div className="text-center">
-                      <div className={`inline-flex px-4 py-2 rounded-full text-lg font-bold ${getCreditGradeColor(loan.creditGrade)}`}>
+                      <div className={`inline-flex px-3 sm:px-4 py-1 sm:py-2 rounded-full text-base sm:text-lg font-bold ${getCreditGradeColor(loan.creditGrade)}`}>
                         {loan.creditGrade}
                       </div>
-                      <div className="text-2xl font-bold mt-2 text-gray-900 dark:text-white">{loan.creditScore}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">Điểm tín dụng</div>
+                      <div className="text-xl sm:text-2xl font-bold mt-2 text-gray-900 dark:text-white">{loan.creditScore}</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Điểm tín dụng</div>
                     </div>
                     
                     <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
+                      <div className="flex justify-between text-xs sm:text-sm">
                         <span className="text-gray-600 dark:text-gray-300">Mức độ rủi ro:</span>
                         <span className={`font-medium ${
                           loan.riskLevel === 'low' ? 'text-green-600 dark:text-green-400' :
@@ -2378,7 +2385,7 @@ const PentaLend: React.FC = () => {
                           {loan.riskLevel === 'low' ? 'Thấp' : loan.riskLevel === 'medium' ? 'Trung bình' : 'Cao'}
                         </span>
                       </div>
-                      <div className="flex justify-between text-sm">
+                      <div className="flex justify-between text-xs sm:text-sm">
                         <span className="text-gray-600 dark:text-gray-300">Điểm xã hội:</span>
                         <span className="text-gray-900 dark:text-white">{borrowerProfile.socialScore}</span>
                       </div>
@@ -2387,8 +2394,8 @@ const PentaLend: React.FC = () => {
                 </div>
 
                 {/* Risk Analysis */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-gray-900 dark:text-white">Phân tích rủi ro</h4>
+                <div className="space-y-3 sm:space-y-4">
+                  <h4 className="font-medium text-sm sm:text-base text-gray-900 dark:text-white">Phân tích rủi ro</h4>
                   
                   {borrowerProfile.positiveFactors.length > 0 && (
                     <div className="space-y-2">
@@ -2521,42 +2528,44 @@ const PentaLend: React.FC = () => {
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
-      {/* Header with Tabs - matching Dashboard structure */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm">
-        <div className="px-4 py-6">
-          <div className="flex justify-between items-center">
-            <div>
-              <div className="flex items-center space-x-3">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">🏦 PentaLend</h1>
-                <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded-full">
+      {/* Header with Tabs - Enhanced responsive design */}
+      <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-40">
+        <div className="px-3 sm:px-4 lg:px-6 py-4 sm:py-6">
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
+            {/* Logo and Title Section */}
+            <div className="flex-shrink-0">
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">🏦 PentaLend</h1>
+                <span className="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded-full whitespace-nowrap">
                   MVP Demo
                 </span>
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 max-w-lg">
                 Nền tảng cho vay P2P tự động hóa bằng AI - Được cung cấp bởi PentaGold Ecosystem
               </p>
             </div>
                 
-            <div className="flex items-center space-x-4">
-              {/* Tab Navigation - matching Dashboard style */}
-              <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+            {/* Tab Navigation - Enhanced responsive */}
+            <div className="flex items-center justify-center lg:justify-end">
+              <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1 overflow-x-auto scrollbar-hide">
                 {[
-                  { id: 'overview', label: 'Tổng quan', icon: Eye },
-                  { id: 'borrow', label: 'Vay tiền', icon: DollarSign },
-                  { id: 'lend', label: 'Cho vay', icon: TrendingUp },
-                  { id: 'profile', label: 'Hồ sơ tín dụng', icon: User }
+                  { id: 'overview', label: 'Tổng quan', icon: Eye, shortLabel: 'TQ' },
+                  { id: 'borrow', label: 'Vay tiền', icon: DollarSign, shortLabel: 'Vay' },
+                  { id: 'lend', label: 'Cho vay', icon: TrendingUp, shortLabel: 'Cho' },
+                  { id: 'profile', label: 'Hồ sơ tín dụng', icon: User, shortLabel: 'Hồ sơ' }
                 ].map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id as any)}
-                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                    className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 lg:px-4 py-2 text-xs sm:text-sm font-medium rounded-md transition-all duration-200 whitespace-nowrap ${
                       activeTab === tab.id
                         ? 'bg-blue-600 text-white shadow-md'
                         : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
-                    <tab.icon className="h-4 w-4" />
-                    <span>{tab.label}</span>
+                    <tab.icon className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                    <span className="hidden sm:inline">{tab.label}</span>
+                    <span className="sm:hidden">{tab.shortLabel}</span>
                   </button>
                 ))}
               </div>
@@ -2565,16 +2574,17 @@ const PentaLend: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content - matching Dashboard structure */}
-      <main className="px-4 py-8 flex-1">
-        <div>
+      {/* Main Content - Enhanced responsive structure */}
+      <main className="px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8 flex-1 max-w-screen-2xl mx-auto w-full">
+        <div className="space-y-4 sm:space-y-6 lg:space-y-8">
           {/* Simplified transitions to reduce conflicts */}
           {activeTab === 'overview' && (
             <motion.div
               key="overview"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="w-full"
             >
               <OverviewTab />
             </motion.div>
@@ -2582,9 +2592,10 @@ const PentaLend: React.FC = () => {
           {activeTab === 'borrow' && (
             <motion.div
               key="borrow"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="w-full"
             >
               <BorrowTab />
             </motion.div>
@@ -2592,9 +2603,10 @@ const PentaLend: React.FC = () => {
           {activeTab === 'lend' && (
             <motion.div
               key="lend"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="w-full"
             >
               <LendTab />
             </motion.div>
@@ -2602,15 +2614,15 @@ const PentaLend: React.FC = () => {
           {activeTab === 'profile' && (
             <motion.div
               key="profile"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="w-full"
             >
               <ProfileTab />
             </motion.div>
           )}
         </div>
-
       </main>
 
       {/* Loan Detail Modal */}

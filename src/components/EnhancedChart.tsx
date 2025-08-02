@@ -49,6 +49,14 @@ const EnhancedChart: React.FC<EnhancedChartProps> = ({ isCompact = false }) => {
   const chartData = useMemo(() => {
     const history = getHistoryForTimeframe(selectedTimeframe);
     
+    // Debug: Log để kiểm tra data
+    if (history.length > 0) {
+      const prices = history.map(point => point.price);
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+      console.log(`Chart data range: ${minPrice.toFixed(2)} - ${maxPrice.toFixed(2)}, Points: ${history.length}`);
+    }
+    
     return {
       labels: history.map(point => {
         const date = new Date(point.timestamp);
@@ -88,6 +96,14 @@ const EnhancedChart: React.FC<EnhancedChartProps> = ({ isCompact = false }) => {
   const chartOptions: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
+    layout: {
+      padding: {
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10
+      }
+    },
     animation: {
       duration: 750,
       easing: 'easeInOutQuart'
@@ -122,6 +138,7 @@ const EnhancedChart: React.FC<EnhancedChartProps> = ({ isCompact = false }) => {
       y: {
         type: 'linear',
         display: true,
+        beginAtZero: false,
         grid: {
           color: 'rgba(0, 0, 0, 0.05)'
         },
@@ -130,11 +147,15 @@ const EnhancedChart: React.FC<EnhancedChartProps> = ({ isCompact = false }) => {
           font: {
             size: isCompact ? 10 : 11
           },
-          color: '#6b7280'
+          color: '#6b7280',
+          maxTicksLimit: isCompact ? 5 : 8,
+          padding: 8
         },
         border: {
           display: false
-        }
+        },
+        // Tự động scale với buffer 5% trên dưới
+        grace: '5%'
       },
       x: {
         type: 'category',
@@ -170,7 +191,7 @@ const EnhancedChart: React.FC<EnhancedChartProps> = ({ isCompact = false }) => {
   const isPositive = priceChange >= 0;
 
   return (
-    <div className="bg-white rounded-xl shadow-lg">
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden">
       <div className={`${isCompact ? 'p-4' : 'p-6'}`}>
         {/* Header */}
         <div className="flex items-center justify-between mb-4 sm:mb-6">
@@ -232,13 +253,15 @@ const EnhancedChart: React.FC<EnhancedChartProps> = ({ isCompact = false }) => {
         </div>
 
         {/* Chart */}
-        <div className={`${isFullscreen ? 'h-96' : isCompact ? 'h-48 sm:h-64' : 'h-64 sm:h-80'} relative`}>
+        <div className={`${isFullscreen ? 'h-96' : isCompact ? 'h-48 sm:h-64' : 'h-64 sm:h-80'} relative overflow-hidden`}>
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-amber-600"></div>
             </div>
           ) : (
-            <Line options={chartOptions} data={chartData} />
+            <div className="w-full h-full">
+              <Line options={chartOptions} data={chartData} />
+            </div>
           )}
         </div>
 

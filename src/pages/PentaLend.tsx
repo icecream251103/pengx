@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sun, Moon, User, LogOut, HelpCircle, Coins } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import { useWeb3 } from '../contexts/Web3Context';
 import PentaLendComponent from '../components/PentaLendComplete';
+import PentaLendOnboarding from '../components/PentaLendOnboarding';
 
 function PentaGoldLogo({ size = 40 }) {
   return (
@@ -27,6 +28,20 @@ const PentaLendPage: React.FC = () => {
   const { account, disconnectWallet } = useWeb3();
   const [selectedAsset, setSelectedAsset] = useState<AssetType>('PenGx');
   const [toolbarMinimized, setToolbarMinimized] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Hiển thị onboarding cho lần đầu tiên
+  useEffect(() => {
+    const hasSeenOnboarding = localStorage.getItem('pentalend_onboarding_completed');
+    if (!hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
+  }, []);
+
+  const handleOnboardingClose = () => {
+    setShowOnboarding(false);
+    localStorage.setItem('pentalend_onboarding_completed', 'true');
+  };
 
   const handleSignOut = async () => {
     try {
@@ -383,7 +398,9 @@ const PentaLendPage: React.FC = () => {
                   {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
                 </button>
                 <button 
+                  onClick={() => setShowOnboarding(true)}
                   className="p-2 text-gray-500 hover:text-blue-600 transition-colors"
+                  title="Hướng dẫn sử dụng PentaLend"
                 >
                   <HelpCircle className="h-5 w-5" />
                 </button>
@@ -411,6 +428,12 @@ const PentaLendPage: React.FC = () => {
           <PentaLendComponent />
         </main>
       </div>
+
+      {/* Onboarding Modal */}
+      <PentaLendOnboarding 
+        isOpen={showOnboarding} 
+        onClose={handleOnboardingClose} 
+      />
     </div>
   );
 };

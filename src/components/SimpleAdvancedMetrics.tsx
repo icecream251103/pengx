@@ -6,6 +6,8 @@ import {
 } from 'lucide-react';
 import { useGoldPrice } from '../hooks/useGoldPrice';
 import { formatCurrency, formatPercentage, formatNumber } from '../utils/calculations';
+import MetricTooltip from './MetricTooltip';
+import { metricTooltips } from '../utils/metricTooltips';
 
 interface SimpleMetricCardProps {
   title: string;
@@ -13,10 +15,11 @@ interface SimpleMetricCardProps {
   change: string;
   changeType: 'increase' | 'decrease' | 'neutral';
   icon: React.ReactNode;
+  tooltipKey?: string;
 }
 
 const SimpleMetricCard: React.FC<SimpleMetricCardProps> = ({ 
-  title, value, change, changeType, icon 
+  title, value, change, changeType, icon, tooltipKey 
 }) => {
   const changeColors = {
     increase: 'text-green-600 dark:text-green-400',
@@ -30,11 +33,11 @@ const SimpleMetricCard: React.FC<SimpleMetricCardProps> = ({
     neutral: <Activity className="h-3 w-3" />
   };
 
-  return (
+  const cardContent = (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow"
+      className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow cursor-help"
     >
       <div className="flex items-center justify-between mb-2">
         <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
@@ -54,6 +57,22 @@ const SimpleMetricCard: React.FC<SimpleMetricCardProps> = ({
       </p>
     </motion.div>
   );
+
+  if (tooltipKey && metricTooltips[tooltipKey as keyof typeof metricTooltips]) {
+    const tooltipData = metricTooltips[tooltipKey as keyof typeof metricTooltips];
+    return (
+      <MetricTooltip
+        title={tooltipData.title}
+        description={tooltipData.description}
+        formula={'formula' in tooltipData ? tooltipData.formula : undefined}
+        example={'example' in tooltipData ? tooltipData.example : undefined}
+      >
+        {cardContent}
+      </MetricTooltip>
+    );
+  }
+
+  return cardContent;
 };
 
 const AdvancedMetricsPanel: React.FC = () => {
@@ -66,56 +85,64 @@ const AdvancedMetricsPanel: React.FC = () => {
       value: formatCurrency(currentData.price),
       change: formatPercentage(currentData.changePercent24h),
       changeType: currentData.changePercent24h >= 0 ? 'increase' as const : 'decrease' as const,
-      icon: <DollarSign className="h-5 w-5 text-blue-600" />
+      icon: <DollarSign className="h-5 w-5 text-blue-600" />,
+      tooltipKey: 'currentPrice'
     },
     {
       title: 'RSI (14)',
       value: '50.0',
       change: 'Neutral',
       changeType: 'neutral' as const,
-      icon: <Activity className="h-5 w-5 text-purple-600" />
+      icon: <Activity className="h-5 w-5 text-purple-600" />,
+      tooltipKey: 'rsi'
     },
     {
       title: 'SMA 20',
       value: formatCurrency(currentData.price * 0.995), // Slightly below current price
       change: '+0.33%',
       changeType: 'increase' as const,
-      icon: <BarChart3 className="h-5 w-5 text-green-600" />
+      icon: <BarChart3 className="h-5 w-5 text-green-600" />,
+      tooltipKey: 'sma'
     },
     {
       title: 'EMA 12',
       value: formatCurrency(currentData.price * 0.998), // Close to current price
       change: '+0.18%',
       changeType: 'increase' as const,
-      icon: <Target className="h-5 w-5 text-orange-600" />
+      icon: <Target className="h-5 w-5 text-orange-600" />,
+      tooltipKey: 'ema'
     },
     {
       title: 'Độ biến động',
       value: '0.71%',
       change: '-0.12%',
       changeType: 'decrease' as const,
-      icon: <Zap className="h-5 w-5 text-yellow-600" />
+      icon: <Zap className="h-5 w-5 text-yellow-600" />,
+      tooltipKey: 'volatilityIndex'
     },
     {
       title: 'Cao nhất 24h',
       value: formatCurrency(currentData.high24h),
       change: formatPercentage((currentData.high24h - currentData.price) / currentData.price * 100),
       changeType: 'increase' as const,
-      icon: <Users className="h-5 w-5 text-indigo-600" />
+      icon: <Users className="h-5 w-5 text-indigo-600" />,
+      tooltipKey: 'changePercent24h'
     },
     {
       title: 'Thấp nhất 24h',
       value: formatCurrency(currentData.low24h),
       change: formatPercentage((currentData.low24h - currentData.price) / currentData.price * 100),
       changeType: 'decrease' as const,
-      icon: <Shield className="h-5 w-5 text-red-600" />
+      icon: <Shield className="h-5 w-5 text-red-600" />,
+      tooltipKey: 'changePercent24h'
     },
     {
       title: 'Khối lượng 24h',
       value: `$${formatNumber(currentData.volume24h)}`,
       change: '+15.3%',
       changeType: 'increase' as const,
-      icon: <Clock className="h-5 w-5 text-emerald-600" />
+      icon: <Clock className="h-5 w-5 text-emerald-600" />,
+      tooltipKey: 'volume24h'
     }
   ];
 

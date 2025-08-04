@@ -114,7 +114,7 @@ const PentaLendOnboarding: React.FC<PentaLendOnboardingProps> = ({ isOpen, onClo
               <p className="text-sm text-gray-600 dark:text-gray-300">Người vay lấy token từ pool, thế chấp tài sản</p>
             </div>
             <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</div>
+              <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</div>
               <p className="text-sm text-gray-600 dark:text-gray-300">Bạn nhận lãi suất từ phí vay của họ</p>
             </div>
           </div>
@@ -247,9 +247,9 @@ const PentaLendOnboarding: React.FC<PentaLendOnboardingProps> = ({ isOpen, onClo
                 <li>• Price volatility - Giá token biến động mạnh</li>
               </ul>
             </div>
-            <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 border border-green-200 dark:border-green-800">
-              <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ Lời khuyên:</h4>
-              <ul className="text-sm text-green-700 dark:text-green-300 space-y-1">
+            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+              <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">Lời khuyên:</h4>
+              <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
                 <li>• Bắt đầu với số tiền nhỏ để học cách hoạt động</li>
                 <li>• Luôn theo dõi Health Factor khi vay</li>
                 <li>• Đa dạng hóa thay vì đặt tất cả vào một pool</li>
@@ -266,8 +266,8 @@ const PentaLendOnboarding: React.FC<PentaLendOnboardingProps> = ({ isOpen, onClo
       content: (
         <div className="text-center">
           <div className="mb-6">
-            <div className="mx-auto w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
-              <CheckCircle className="h-8 w-8 text-green-600" />
+            <div className="mx-auto w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
+              <CheckCircle className="h-8 w-8 text-blue-600" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
               Bạn đã sẵn sàng sử dụng PentaLend!
@@ -378,7 +378,7 @@ const PentaLendOnboarding: React.FC<PentaLendOnboardingProps> = ({ isOpen, onClo
                   index === currentStep 
                     ? 'bg-blue-500' 
                     : index < currentStep 
-                      ? 'bg-green-500' 
+                      ? 'bg-blue-500' 
                       : 'bg-gray-300 dark:bg-gray-600'
                 }`}
               />

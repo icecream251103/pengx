@@ -69,7 +69,7 @@ function App() {
         <div className="hidden md:flex items-center space-x-8">
           <a href="#about" className="text-gray-300 hover:text-amber-400 transition-colors">Giới thiệu</a>
           <a href="#tokenomics" className="text-gray-300 hover:text-amber-400 transition-colors">Tokenomics</a>
-          <a href="#whitepaper" className="text-gray-300 hover:text-amber-400 transition-colors">Whitepaper</a>
+          <Link to="/whitepaper" className="text-gray-300 hover:text-amber-400 transition-colors">Whitepaper</Link>
           {isConnected ? (
             <Link 
               to="/dashboard" 
@@ -462,9 +462,9 @@ function App() {
             Tải xuống whitepaper toàn diện của chúng tôi để tìm hiểu thêm về mạng oracle, tokenomics và tầm nhìn của PentaGold.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-amber-700 hover:bg-amber-100 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center">
-              Tải Whitepaper <ArrowRight className="ml-2 h-5 w-5" />
-            </button>
+            <Link to="/whitepaper" className="bg-white text-amber-700 hover:bg-amber-100 px-8 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center">
+              Xem Whitepaper <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
             <button
               onClick={handleGetStarted}
               disabled={loading}
@@ -509,7 +509,7 @@ function App() {
                 <li><Link to="/" className="text-gray-400 hover:text-amber-500 transition-colors">Trang chủ</Link></li>
                 <li><a href="#about" className="text-gray-400 hover:text-amber-500 transition-colors">Giới thiệu</a></li>
                 <li><a href="#tokenomics" className="text-gray-400 hover:text-amber-500 transition-colors">Tokenomics</a></li>
-                <li><a href="#whitepaper" className="text-gray-400 hover:text-amber-500 transition-colors">Whitepaper</a></li>
+                <li><Link to="/whitepaper" className="text-gray-400 hover:text-amber-500 transition-colors">Whitepaper</Link></li>
                 <li><Link to="/dashboard" className="text-gray-400 hover:text-amber-500 transition-colors">Bảng điều khiển</Link></li>
               </ul>
             </div>

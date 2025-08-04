@@ -534,7 +534,7 @@ const TradingPanel: React.FC = () => {
         ) : (
           <>
             <CheckCircle className="h-5 w-5 mr-2" />
-            {isSandboxMode ? 'Virtual ' : ''}{tradeType === 'mint' ? 'Mint PenGx' : 'Redeem PenGx'}
+            {isSandboxMode ? 'Giả lập ' : ''}{tradeType === 'mint' ? 'Mua PenGx' : 'Bán PenGx'}
           </>
         )}
       </button>

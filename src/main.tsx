@@ -9,6 +9,7 @@ import App from './App.tsx';
 import Dashboard from './pages/Dashboard.tsx';
 import KYC from './pages/KYC.tsx';
 import PentaLend from './pages/PentaLend.tsx';
+import Whitepaper from './pages/Whitepaper.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
           <Router>
             <Routes>
               <Route path="/" element={<App />} />
+              <Route path="/whitepaper" element={<Whitepaper />} />
               <Route 
                 path="/kyc" 
                 element={

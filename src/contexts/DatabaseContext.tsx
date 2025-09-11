@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, ReactNode } from 'react'
 import { useSupabaseAuth } from '../hooks/useSupabaseAuth'
 import { useRealtimeData } from '../hooks/useRealtimeData'
+import { isSupabaseConfigured } from '../lib/supabase'
 import type { User, Session } from '@supabase/supabase-js'
 import type { DbUser, DbPriceHistory, DbTransaction, DbNotification } from '../services/database'
 
@@ -41,6 +42,9 @@ interface DatabaseProviderProps {
 }
 
 export const DatabaseProvider: React.FC<DatabaseProviderProps> = ({ children }) => {
+  // Check if Supabase is configured
+  const supabaseConfigured = isSupabaseConfigured();
+  
   const {
     user,
     session,

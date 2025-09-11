@@ -5,6 +5,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { Web3Provider } from './contexts/Web3Context';
 import { SandboxProvider } from './contexts/SandboxContext';
 import { DatabaseProvider } from './contexts/DatabaseContext';
+import { SupabaseErrorBoundary } from './components/SupabaseErrorBoundary';
 import ProtectedRoute from './components/ProtectedRoute';
 import App from './App.tsx';
 import Dashboard from './pages/Dashboard.tsx';
@@ -16,12 +17,13 @@ import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider>
-      <DatabaseProvider>
-        <Web3Provider>
-          <SandboxProvider>
-            <Router>
-            <Routes>
+    <SupabaseErrorBoundary>
+      <ThemeProvider>
+        <DatabaseProvider>
+          <Web3Provider>
+            <SandboxProvider>
+              <Router>
+              <Routes>
               <Route path="/" element={<App />} />
               <Route path="/whitepaper" element={<Whitepaper />} />
               <Route 
@@ -55,5 +57,6 @@ createRoot(document.getElementById('root')!).render(
       </Web3Provider>
       </DatabaseProvider>
     </ThemeProvider>
+    </SupabaseErrorBoundary>
   </StrictMode>
 );

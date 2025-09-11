@@ -4,7 +4,26 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
+  console.error('Missing Supabase environment variables:', {
+    hasUrl: !!supabaseUrl,
+    hasAnonKey: !!supabaseAnonKey,
+    env: import.meta.env.MODE
+  });
+  
+  // In development, provide helpful error message
+  if (import.meta.env.DEV) {
+    throw new Error(`
+Missing Supabase environment variables:
+- VITE_SUPABASE_URL: ${supabaseUrl ? '✓' : '✗'}
+- VITE_SUPABASE_ANON_KEY: ${supabaseAnonKey ? '✓' : '✗'}
+
+Please check your .env file and ensure these variables are set.
+See .env.example for reference.
+    `);
+  }
+  
+  // In production, throw a simpler error
+  throw new Error('Missing Supabase environment variables');
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
@@ -14,6 +33,22 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     detectSessionInUrl: true
   }
 })
+
+// Check if Supabase is properly configured
+export const isSupabaseConfigured = () => {
+  return !!(supabaseUrl && supabaseAnonKey);
+};
+
+// Graceful fallback for when Supabase is not configured
+export const withSupabaseCheck = (fn: Function) => {
+  return (...args: any[]) => {
+    if (!isSupabaseConfigured()) {
+      console.warn('Supabase not configured, skipping operation');
+      return Promise.resolve(null);
+    }
+    return fn(...args);
+  };
+};
 
 // Database table names
 export const TABLES = {

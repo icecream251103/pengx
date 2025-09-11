@@ -5,6 +5,7 @@ import { useWeb3 } from './contexts/Web3Context';
 import EnhancedChart from './components/EnhancedChart';
 import BiometricLogin from './components/BiometricLogin';
 import VNDComplianceBanner from './components/VNDComplianceBanner';
+import { SupabaseErrorBoundary } from './components/SupabaseErrorBoundary';
 import { motion } from 'framer-motion';
 
 
@@ -59,7 +60,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#10131a] text-white">
+    <SupabaseErrorBoundary>
+      <div className="min-h-screen bg-[#10131a] text-white">
       {/* Navigation */}
       <nav className="w-full px-8 py-4 flex justify-between items-center bg-[#10131a] border-b border-[#23263a]">
         <div className="flex items-center space-x-3">
@@ -564,7 +566,8 @@ function App() {
           onBack={() => setShowBiometricLogin(false)}
         />
       )}
-    </div>
+      </div>
+    </SupabaseErrorBoundary>
   );
 }
 

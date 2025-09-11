@@ -16,15 +16,20 @@ contract PentaGoldTimelock is TimelockController {
         address[] memory executors,
         address admin
     ) TimelockController(MIN_DELAY, proposers, executors, admin) {
-        // Constructor automatically sets up the timelock with minimum delay
+        // Constructor automatically sets the minimum delay
     }
 
     /**
-     * @dev Override to enforce minimum and maximum delay constraints
+     * @dev Override to return the minimum delay
      */
-    function updateDelay(uint256 newDelay) external override {
-        require(newDelay >= MIN_DELAY, "Delay too short");
-        require(newDelay <= MAX_DELAY, "Delay too long");
-        super.updateDelay(newDelay);
+    function getMinDelay() public view override returns (uint256) {
+        return MIN_DELAY;
+    }
+    
+    /**
+     * @dev Get the maximum delay
+     */
+    function getMaxDelay() external pure returns (uint256) {
+        return MAX_DELAY;
     }
 }

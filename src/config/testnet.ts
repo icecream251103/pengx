@@ -61,7 +61,7 @@ export const TESTNET_CONFIG = {
   // Beta Testing Features
   BETA: {
     SANDBOX_MODE: true,
-    VIRTUAL_BALANCE: '10000', // $10,000 USD
+    VIRTUAL_BALANCE: '7634', // 200 triệu VNĐ tương đương ~$7,634 USD
     FEEDBACK_WIDGET: true,
     DEBUG_MODE: true,
     ANALYTICS_ENHANCED: true

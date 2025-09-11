@@ -719,8 +719,8 @@ const PentaLend: React.FC = () => {
     let isMounted = true;
     
     const interval = setInterval(() => {
-      if (!isMounted || activeTab === 'borrow') {
-        return; // Double check to prevent any updates
+      if (!isMounted) {
+        return; // Interval cleanup guard
       }
       
       try {
@@ -762,9 +762,8 @@ const PentaLend: React.FC = () => {
         }
       } catch (error) {
         console.warn('Error updating loan proposals:', error);
-        if (activeTab !== 'borrow') { // Only set error if not in borrow tab
-          setLoanError('Lỗi cập nhật dữ liệu. Đang thử lại...');
-        }
+        // Safe to set error here because this effect doesn't run when activeTab is 'borrow'
+        setLoanError('Lỗi cập nhật dữ liệu. Đang thử lại...');
       }
     }, 15000); // Increased interval to 15 seconds for maximum stability
 

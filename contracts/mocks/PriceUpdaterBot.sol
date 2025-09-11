@@ -67,12 +67,12 @@ contract PriceUpdaterBot {
         chainlinkOracle.updatePrice(int256(chainlinkPrice));
         bandOracle.updateReferenceData("XAU", "USD", bandPrice);
         
-        // Update aggregated price
-        oracleAggregator.updateAggregatedPrice();
+        // Get updated aggregated price (auto-updates when called)
+        (uint256 aggregatedPrice,) = oracleAggregator.getLatestPrice();
         
         lastUpdateTime = block.timestamp;
         
-        emit PriceUpdated((chainlinkPrice + bandPrice) / 2, block.timestamp);
+        emit PriceUpdated(aggregatedPrice, block.timestamp);
     }
     
     /**
@@ -165,9 +165,9 @@ contract PriceUpdaterBot {
         chainlinkOracle.updatePrice(int256(extremePrice));
         bandOracle.updateReferenceData("XAU", "USD", extremePrice);
         
-        // This should trigger circuit breaker
-        try oracleAggregator.updateAggregatedPrice() {
-            emit PriceUpdated(extremePrice, block.timestamp);
+        // This should trigger circuit breaker when getting latest price
+        try oracleAggregator.getLatestPrice() returns (uint256 price, uint256 timestamp) {
+            emit PriceUpdated(price, timestamp);
         } catch {
             // Circuit breaker likely triggered
         }

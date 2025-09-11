@@ -135,7 +135,7 @@ const DCAForm: React.FC<{ onCreate: (plan: DCAPlan) => void }> = ({ onCreate }) 
           <div className="mt-3 inline-flex items-center space-x-2 px-3 py-1 bg-amber-50 dark:bg-amber-900/10 rounded-lg border border-amber-200 dark:border-amber-800">
             <DollarSign className="h-4 w-4 text-amber-600" />
             <span className="text-sm font-medium text-amber-700 dark:text-amber-300">
-              Số dư ảo: ${sandboxBalance.virtualUSD.toFixed(2)}
+              Số dư ảo: {(sandboxBalance.virtualUSD * 26199).toLocaleString()} VNĐ
             </span>
           </div>
         )}
@@ -163,7 +163,7 @@ const DCAForm: React.FC<{ onCreate: (plan: DCAPlan) => void }> = ({ onCreate }) 
               value={amount}
               onChange={e => setAmount(e.target.value)}
               className="w-full px-4 py-4 pl-12 border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-xl focus:border-amber-500 focus:ring-4 focus:ring-amber-100 dark:focus:ring-amber-900/20 outline-none transition-all text-lg font-medium text-gray-900 dark:text-white"
-              placeholder="Nhập số tiền USD"
+              placeholder="Nhập số tiền VNĐ"
               required
             />
             <div className="absolute left-4 top-1/2 -translate-y-1/2">

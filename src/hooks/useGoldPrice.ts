@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
+import { convertGoldPriceToVND } from '../config/currency';
+import { goldPriceOracle } from '../services/goldPriceOracle';
 
 export interface PriceData {
   price: number;
@@ -20,20 +22,25 @@ export interface PriceHistory {
 }
 
 const REFRESH_INTERVAL = 30000; // 30 seconds
-const BASE_PRICE = 3350;
+// Cập nhật giá vàng thực tế theo thị trường ngày 11/09/2025
+const BASE_PRICE_USD = 3618.16; // Giá vàng thực tế hiện tại
+const BASE_PRICE = convertGoldPriceToVND(BASE_PRICE_USD); // Giá vàng tính bằng VNĐ
 const BASE_SUPPLY = 1000000;
 const BASE_MARKET_CAP = BASE_PRICE * BASE_SUPPLY;
 
-// Simulate realistic price movements
+// Simulate realistic price movements - giữ nguyên tỷ lệ biến động
 const generatePriceMovement = (lastPrice: number): number => {
   const volatility = 0.002; // 0.2% max change per update
   const trend = Math.random() < 0.52 ? 1 : -1; // Slight upward bias
   const change = (Math.random() * volatility * trend) + (Math.random() * 0.001 - 0.0005);
   
   let newPrice = lastPrice * (1 + change);
-  newPrice = Math.max(3300, Math.min(3400, newPrice)); // Keep within bounds
+  // Điều chỉnh giới hạn cho giá VNĐ (tương đương 3600-3650 USD để phản ánh giá thực)
+  const minPriceVND = convertGoldPriceToVND(3600);
+  const maxPriceVND = convertGoldPriceToVND(3650);
+  newPrice = Math.max(minPriceVND, Math.min(maxPriceVND, newPrice));
   
-  return Number(newPrice.toFixed(2));
+  return Number(newPrice.toFixed(0)); // VNĐ không cần số thập phân
 };
 
 export const useGoldPrice = () => {

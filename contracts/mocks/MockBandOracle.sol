@@ -85,6 +85,13 @@ contract MockBandOracle {
             newPrice = basePrice > variation ? basePrice - variation : basePrice;
         }
         
-        updateReferenceData(base, quote, newPrice);
+        // Update reference data directly
+        referenceData[base][quote] = ReferenceData({
+            rate: newPrice,
+            lastUpdatedBase: block.timestamp,
+            lastUpdatedQuote: block.timestamp
+        });
+        
+        emit ReferenceDataUpdated(base, quote, newPrice, block.timestamp, block.timestamp);
     }
 }

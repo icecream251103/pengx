@@ -105,6 +105,19 @@ contract MockChainlinkOracle {
         int256 variation = int256(uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % uint256(_maxVariation * 2)) - _maxVariation;
         int256 newPrice = _basePrice + variation;
         
-        updatePrice(newPrice);
+        // Update price using the existing function
+        uint80 newRoundId = latestRound.roundId + 1;
+        
+        latestRound = RoundData({
+            roundId: newRoundId,
+            answer: newPrice,
+            startedAt: block.timestamp,
+            updatedAt: block.timestamp,
+            answeredInRound: newRoundId
+        });
+        
+        rounds[newRoundId] = latestRound;
+        
+        emit AnswerUpdated(newPrice, newRoundId, block.timestamp);
     }
 }

@@ -1,0 +1,52 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "MockOracleAggregator",
+  "sourceName": "contracts/mocks/MockContracts.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "getLatestPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080806040523461002657686c6b935b8bbd4000006000554260015560af908161002c8239f35b600080fdfe6080806040526004361015601257600080fd5b600090813560e01c9081638e15f473146054575063f7d9757714603457600080fd5b346051576040366003190112605157600435815560243560015580f35b80fd5b90503460755781600319360112607557604091546001549082526020820152f35b5080fdfea2646970667358221220384c442a5f8d58143b794443c499a4a311add53184d54acdf2968eeb20e54e7564736f6c63430008130033",
+  "deployedBytecode": "0x6080806040526004361015601257600080fd5b600090813560e01c9081638e15f473146054575063f7d9757714603457600080fd5b346051576040366003190112605157600435815560243560015580f35b80fd5b90503460755781600319360112607557604091546001549082526020820152f35b5080fdfea2646970667358221220384c442a5f8d58143b794443c499a4a311add53184d54acdf2968eeb20e54e7564736f6c63430008130033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

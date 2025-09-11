@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 interface SandboxBalance {
   virtualUSD: number;
   virtualTokens: number;
+  virtualVND: number; // Track VNĐ trực tiếp để tránh conversion error
 }
 
 interface VirtualDCAPlan {
@@ -32,6 +33,7 @@ interface SandboxContextType {
   updateSandboxBalance: (usdAmount: number, tokenAmount: number) => void;
   resetSandboxBalance: () => void;
   executeSandboxTrade: (tradeType: 'buy' | 'sell', usdAmount: number, tokenAmount: number) => boolean;
+  executeSandboxTradeVND: (tradeType: 'buy' | 'sell', vndAmount: number, tokenAmount: number) => boolean;
   createVirtualDCAPlan: (plan: Omit<VirtualDCAPlan, 'id' | 'totalInvested' | 'tokensAccumulated' | 'executionHistory' | 'isActive'>) => string;
   pauseVirtualDCAPlan: (planId: string) => void;
   resumeVirtualDCAPlan: (planId: string) => void;
@@ -45,7 +47,10 @@ interface SandboxProviderProps {
   children: ReactNode;
 }
 
-const INITIAL_VIRTUAL_USD = 10000;
+// Đảm bảo có đúng 200 triệu VNĐ tròn
+// Tính ngược từ 200M VNĐ để tránh rounding error
+const TARGET_VND = 200000000; // 200 triệu VNĐ
+const INITIAL_VIRTUAL_USD = Math.ceil(TARGET_VND / 26199 * 100) / 100; // Làm tròn lên để đảm bảo đủ VNĐ
 const INITIAL_VIRTUAL_TOKENS = 0;
 
 export { INITIAL_VIRTUAL_USD };
@@ -55,6 +60,7 @@ export const SandboxProvider: React.FC<SandboxProviderProps> = ({ children }) =>
   const [sandboxBalance, setSandboxBalance] = useState<SandboxBalance>({
     virtualUSD: INITIAL_VIRTUAL_USD,
     virtualTokens: INITIAL_VIRTUAL_TOKENS,
+    virtualVND: TARGET_VND, // Đúng 200 triệu VNĐ
   });
   const [virtualDCAPlans, setVirtualDCAPlans] = useState<VirtualDCAPlan[]>([]);
 
@@ -71,6 +77,10 @@ export const SandboxProvider: React.FC<SandboxProviderProps> = ({ children }) =>
     if (savedBalance) {
       try {
         const parsedBalance = JSON.parse(savedBalance);
+        // Migration: add virtualVND if missing
+        if (!parsedBalance.virtualVND) {
+          parsedBalance.virtualVND = parsedBalance.virtualUSD * 26199;
+        }
         setSandboxBalance(parsedBalance);
       } catch (error) {
         console.error('Error parsing saved sandbox balance:', error);
@@ -104,6 +114,7 @@ export const SandboxProvider: React.FC<SandboxProviderProps> = ({ children }) =>
     const newBalance = {
       virtualUSD: usdAmount,
       virtualTokens: tokenAmount,
+      virtualVND: usdAmount * 26199, // Sync VNĐ với USD
     };
     setSandboxBalance(newBalance);
     localStorage.setItem('sandboxBalance', JSON.stringify(newBalance));
@@ -113,6 +124,7 @@ export const SandboxProvider: React.FC<SandboxProviderProps> = ({ children }) =>
     const initialBalance = {
       virtualUSD: INITIAL_VIRTUAL_USD,
       virtualTokens: INITIAL_VIRTUAL_TOKENS,
+      virtualVND: TARGET_VND,
     };
     setSandboxBalance(initialBalance);
     localStorage.setItem('sandboxBalance', JSON.stringify(initialBalance));
@@ -142,6 +154,46 @@ export const SandboxProvider: React.FC<SandboxProviderProps> = ({ children }) =>
         sandboxBalance.virtualUSD + usdAmount,
         sandboxBalance.virtualTokens - tokenAmount
       );
+      return true;
+    }
+  };
+
+  const executeSandboxTradeVND = (tradeType: 'buy' | 'sell', vndAmount: number, tokenAmount: number): boolean => {
+    if (tradeType === 'buy') {
+      // Check if user has enough virtual VND
+      if (sandboxBalance.virtualVND < vndAmount) {
+        return false; // Insufficient funds
+      }
+      
+      // Execute buy trade - update both VND and USD
+      const newVND = sandboxBalance.virtualVND - vndAmount;
+      const newUSD = newVND / 26199; // Convert VND to USD for internal tracking
+      const newTokens = sandboxBalance.virtualTokens + tokenAmount;
+      
+      setSandboxBalance({
+        virtualVND: newVND,
+        virtualUSD: newUSD,
+        virtualTokens: newTokens
+      });
+      
+      return true;
+    } else {
+      // Check if user has enough virtual tokens
+      if (sandboxBalance.virtualTokens < tokenAmount) {
+        return false; // Insufficient tokens
+      }
+      
+      // Execute sell trade
+      const newVND = sandboxBalance.virtualVND + vndAmount;
+      const newUSD = newVND / 26199;
+      const newTokens = sandboxBalance.virtualTokens - tokenAmount;
+      
+      setSandboxBalance({
+        virtualVND: newVND,
+        virtualUSD: newUSD,
+        virtualTokens: newTokens
+      });
+      
       return true;
     }
   };
@@ -245,6 +297,7 @@ export const SandboxProvider: React.FC<SandboxProviderProps> = ({ children }) =>
     updateSandboxBalance,
     resetSandboxBalance,
     executeSandboxTrade,
+    executeSandboxTradeVND,
     createVirtualDCAPlan,
     pauseVirtualDCAPlan,
     resumeVirtualDCAPlan,

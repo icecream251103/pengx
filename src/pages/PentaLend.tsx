@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, User, LogOut, HelpCircle, Coins } from 'lucide-react';
+import { Sun, Moon, User, LogOut, HelpCircle, Coins, Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import { useWeb3 } from '../contexts/Web3Context';
@@ -28,6 +28,7 @@ const PentaLendPage: React.FC = () => {
   const { account, disconnectWallet } = useWeb3();
   const [selectedAsset, setSelectedAsset] = useState<AssetType>('PenGx');
   const [toolbarMinimized, setToolbarMinimized] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
 
   // Hiển thị onboarding cho lần đầu tiên
@@ -36,7 +37,20 @@ const PentaLendPage: React.FC = () => {
     if (!hasSeenOnboarding) {
       setShowOnboarding(true);
     }
-  }, []);
+
+    // Close mobile menu when clicking outside
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (isMobileMenuOpen && !target.closest('.mobile-sidebar') && !target.closest('.mobile-menu-button')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   const handleOnboardingClose = () => {
     setShowOnboarding(false);
@@ -125,9 +139,20 @@ const PentaLendPage: React.FC = () => {
     ];
 
     return (
-      <div className={`bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 min-h-screen ${
-        toolbarMinimized ? 'w-16' : 'w-64'
-      }`}>
+      <>
+        {/* Mobile Overlay */}
+        {isMobileMenuOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+        
+        {/* Sidebar */}
+        <div className={`bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 min-h-screen fixed left-0 top-0 z-30 overflow-y-auto mobile-sidebar
+          ${toolbarMinimized ? 'w-16' : 'w-64'}
+          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        `}>
         <div className="p-4">
           {/* Header with minimize/maximize buttons */}
           <div className="flex items-center justify-between mb-4">
@@ -368,21 +393,32 @@ const PentaLendPage: React.FC = () => {
         </div>
           </>
         )}
-      </div>
+        </div>
+      </>
     );
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen flex">
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Left Sidebar - Asset Toolbar */}
       <AssetToolbar />
       
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col">
+      <div className={`flex flex-col transition-all duration-300 ${
+        toolbarMinimized ? 'md:ml-16' : 'md:ml-64'
+      }`}>
         {/* Top Navigation - matching Dashboard exactly */}
         <nav className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
           <div className="px-4">
             <div className="flex justify-between items-center h-16">
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 mobile-menu-button"
+              >
+                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-3">
                   <PentaGoldLogo />

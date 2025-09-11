@@ -12,12 +12,13 @@ import {
   formatPercentage,
   validateSlippage
 } from '../utils/calculations';
+import { convertUSDToVND, formatVND, convertVNDToUSD } from '../config/currency';
 
 type TradeType = 'mint' | 'redeem';
 
 const TradingPanel: React.FC = () => {
   const { currentData } = useGoldPrice();
-  const { isSandboxMode, sandboxBalance, executeSandboxTrade, resetSandboxBalance } = useSandbox();
+  const { isSandboxMode, sandboxBalance, executeSandboxTradeVND, resetSandboxBalance } = useSandbox();
   const { ethBalance, pengxBalance, usdBalance } = useWalletBalances();
   const [tradeType, setTradeType] = useState<TradeType>('mint');
   const [amount, setAmount] = useState('');
@@ -56,8 +57,9 @@ const TradingPanel: React.FC = () => {
   const handleMaxClick = () => {
     const balance = getCurrentBalance();
     if (tradeType === 'mint') {
-      // For minting, set the max USD amount user can spend
-      setAmount(balance.usd.toString());
+      // For minting, set the max VNĐ amount user can spend
+      const maxVND = isSandboxMode ? sandboxBalance.virtualVND : convertUSDToVND(balance.usd);
+      setAmount(maxVND.toString());
     } else {
       // For redeeming, set the max PenGx tokens user can redeem
       setAmount(balance.pengx.toString());
@@ -73,27 +75,38 @@ const TradingPanel: React.FC = () => {
   const validateTransaction = (): string | null => {
     const numAmount = parseFloat(amount);
     
+    console.log('Validate transaction:', { amount, numAmount, tradeType });
+    
     if (!amount || isNaN(numAmount) || numAmount <= 0) {
-      return 'Please enter a valid amount';
+      console.log('Invalid amount validation failed');
+      return 'Vui lòng nhập số tiền hợp lệ';
     }
 
     const balance = getCurrentBalance();
+    console.log('Current balance:', balance);
 
     if (tradeType === 'mint') {
-      // For minting, numAmount is the USD amount the user wants to spend
-      if (numAmount > balance.usd) {
-        return `Insufficient ${isSandboxMode ? 'virtual ' : ''}USD balance`;
+      // For minting, numAmount is the VNĐ amount the user wants to spend
+      const vndBalance = isSandboxMode ? sandboxBalance.virtualVND : convertUSDToVND(balance.usd);
+      console.log('VND amount:', numAmount, 'VND balance:', vndBalance);
+      if (numAmount > vndBalance) {
+        console.log('Insufficient balance validation failed');
+        return `Số dư ${isSandboxMode ? 'ảo ' : ''}VNĐ không đủ (Có: ${vndBalance.toLocaleString()} VNĐ, Cần: ${numAmount.toLocaleString()} VNĐ)`;
       }
     } else {
       // For redeeming, numAmount is the PenGx tokens the user wants to redeem
       if (numAmount > balance.pengx) {
-        return `Insufficient ${isSandboxMode ? 'virtual ' : ''}PenGx balance`;
+        return `Số dư ${isSandboxMode ? 'ảo ' : ''}PenGx không đủ`;
       }
     }
 
     const slippageError = validateSlippage(slippageTolerance);
-    if (slippageError) return slippageError;
+    if (slippageError) {
+      console.log('Slippage validation failed:', slippageError);
+      return slippageError;
+    }
 
+    console.log('Validation passed!');
     return null;
   };
 
@@ -112,22 +125,34 @@ const TradingPanel: React.FC = () => {
       const numAmount = parseFloat(amount);
       
       if (isSandboxMode) {
-        // Handle sandbox trade
-        const usdAmount = tradeType === 'mint' ? numAmount : numAmount * currentData.price;
-        const tokenAmount = tradeType === 'mint' ? numAmount / currentData.price : numAmount;
-        
-        const success = executeSandboxTrade(
-          tradeType === 'mint' ? 'buy' : 'sell',
-          usdAmount,
-          tokenAmount
-        );
-        
-        if (!success) {
-          setError('Insufficient virtual balance');
-          return;
+        // Handle sandbox trade - cả amount và currentData.price đều ở VNĐ
+        if (tradeType === 'mint') {
+          // Mua PenGx bằng VNĐ
+          const vndAmount = numAmount; // Số VNĐ muốn đầu tư
+          const tokenAmount = vndAmount / currentData.price; // Số PenGx nhận được
+          
+          const success = executeSandboxTradeVND('buy', vndAmount, tokenAmount);
+          
+          if (!success) {
+            setError('Số dư ảo không đủ');
+            return;
+          }
+          
+          setSuccessMessage(`Mua thành công ${tokenAmount.toFixed(6)} PenGx với ${vndAmount.toLocaleString()} VNĐ!`);
+        } else {
+          // Bán PenGx lấy VNĐ
+          const tokenAmount = numAmount; // Số PenGx muốn bán
+          const vndAmount = tokenAmount * currentData.price; // Số VNĐ nhận được
+          
+          const success = executeSandboxTradeVND('sell', vndAmount, tokenAmount);
+          
+          if (!success) {
+            setError('Số PenGx không đủ');
+            return;
+          }
+          
+          setSuccessMessage(`Bán thành công ${tokenAmount.toFixed(6)} PenGx nhận ${vndAmount.toLocaleString()} VNĐ!`);
         }
-        
-        setSuccessMessage(`Virtual ${tradeType === 'mint' ? 'mint' : 'redeem'} successful!`);
       } else {
         // Handle real trade (simulate)
         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -147,15 +172,21 @@ const TradingPanel: React.FC = () => {
   };
 
   const numAmount = parseFloat(amount) || 0;
+  
+  // Tính toán output amount - amount nhập vào là VNĐ, currentData.price cũng là VNĐ
   const outputAmount = tradeType === 'mint' 
-    ? numAmount / currentData.price // USD amount divided by price gives PenGx tokens
-    : numAmount * currentData.price; // PenGx tokens multiplied by price gives USD
-  const priceImpact = calculatePriceImpact(numAmount * currentData.price, 10000000); // $10M liquidity
+    ? numAmount / currentData.price // VNĐ / (VNĐ/PenGx) = PenGx tokens
+    : numAmount * currentData.price; // PenGx * (VNĐ/PenGx) = VNĐ
+    
+  const priceImpact = calculatePriceImpact(
+    tradeType === 'mint' ? convertVNDToUSD(numAmount) : convertVNDToUSD(numAmount * currentData.price), 
+    10000000
+  ); // $10M liquidity
   const transactionCost = estimateTransactionCost(gasPrice);
   
   const minReceived = tradeType === 'mint' 
     ? calculateMinimumReceived(outputAmount, slippageTolerance) // Min PenGx tokens received
-    : calculateMinimumReceived(outputAmount, slippageTolerance); // Min USD received
+    : calculateMinimumReceived(outputAmount, slippageTolerance); // Min VNĐ received
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 w-full max-w-md mx-auto">
@@ -211,12 +242,12 @@ const TradingPanel: React.FC = () => {
             <DollarSign className="h-4 w-4 text-green-600 flex-shrink-0" />
             <div className="min-w-0 flex-1">
               <div className="text-xs text-gray-600 dark:text-gray-400 truncate">
-                {isSandboxMode ? 'Virtual USD' : 'USD Balance'}
+                {isSandboxMode ? 'Số dư VNĐ ảo' : 'Số dư VNĐ'}
               </div>
               <div className="font-bold text-gray-900 dark:text-white truncate">
                 {isSandboxMode 
-                  ? formatCurrency(sandboxBalance.virtualUSD)
-                  : formatCurrency(usdBalance)
+                  ? formatCurrency(sandboxBalance.virtualVND, 'VND')
+                  : formatCurrency(convertUSDToVND(usdBalance))
                 }
               </div>
             </div>
@@ -246,13 +277,13 @@ const TradingPanel: React.FC = () => {
             <div className="min-w-0">
               <div className="text-xs text-amber-600 dark:text-amber-400 mb-1 truncate">Tổng đầu tư</div>
               <div className="font-semibold text-amber-900 dark:text-amber-300 truncate">
-                {formatCurrency(INITIAL_VIRTUAL_USD - sandboxBalance.virtualUSD)}
+                {formatCurrency(convertUSDToVND(INITIAL_VIRTUAL_USD - sandboxBalance.virtualUSD))}
               </div>
             </div>
             <div className="min-w-0">
               <div className="text-xs text-amber-600 dark:text-amber-400 mb-1 truncate">Giá trị hiện tại</div>
               <div className="font-semibold text-amber-900 dark:text-amber-300 truncate">
-                {formatCurrency(sandboxBalance.virtualTokens * currentData.price + sandboxBalance.virtualUSD)}
+                {formatCurrency(convertUSDToVND(sandboxBalance.virtualTokens * currentData.price + sandboxBalance.virtualUSD))}
               </div>
             </div>
             <div className="min-w-0">
@@ -352,10 +383,10 @@ const TradingPanel: React.FC = () => {
               {tradeType === 'mint' ? 'Bạn trả' : 'Bạn bán'}
             </label>
             <span className="text-sm text-gray-500 truncate">
-              {isSandboxMode ? 'Virtual ' : ''}Balance: {(() => {
+              {isSandboxMode ? 'Số dư ảo: ' : 'Số dư: '}{(() => {
                 const balance = getCurrentBalance();
                 return tradeType === 'mint' 
-                  ? formatCurrency(balance.usd) 
+                  ? (isSandboxMode ? formatCurrency(sandboxBalance.virtualVND, 'VND') : formatCurrency(convertUSDToVND(balance.usd)))
                   : `${balance.pengx.toFixed(6)} PenGx`;
               })()}
             </span>
@@ -377,7 +408,7 @@ const TradingPanel: React.FC = () => {
                   <Coins className="h-5 w-5 flex-shrink-0" />
                 )}
                 <span className="font-medium whitespace-nowrap">
-                  {tradeType === 'mint' ? 'USD' : 'PenGx'}
+                  {tradeType === 'mint' ? 'VNĐ' : 'PenGx'}
                 </span>
               </div>
               <button
@@ -422,7 +453,7 @@ const TradingPanel: React.FC = () => {
                 <DollarSign className="h-5 w-5 flex-shrink-0" />
               )}
               <span className="font-medium whitespace-nowrap">
-                {tradeType === 'mint' ? 'PenGx' : 'USD'}
+                {tradeType === 'mint' ? 'PenGx' : 'VNĐ'}
               </span>
             </div>
           </div>
@@ -438,7 +469,7 @@ const TradingPanel: React.FC = () => {
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600 dark:text-gray-400">Giá trị hiện tại</span>
                 <span className="text-gray-900 dark:text-white">
-                  {formatCurrency(outputAmount)}
+                  {formatCurrency(convertUSDToVND(outputAmount))}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
@@ -476,7 +507,7 @@ const TradingPanel: React.FC = () => {
                     const avgPrice = sandboxBalance.virtualTokens > 0 ? totalInvested / sandboxBalance.virtualTokens : currentData.price;
                     const profitLoss = (currentData.price - avgPrice) * numAmount;
                     const profitLossPercentage = avgPrice > 0 ? ((currentData.price - avgPrice) / avgPrice) * 100 : 0;
-                    return `${formatCurrency(profitLoss)} (${profitLoss >= 0 ? '+' : ''}${profitLossPercentage.toFixed(2)}%)`;
+                    return `${formatCurrency(convertUSDToVND(profitLoss))} (${profitLoss >= 0 ? '+' : ''}${profitLossPercentage.toFixed(2)}%)`;
                   })()}
                 </span>
               </div>

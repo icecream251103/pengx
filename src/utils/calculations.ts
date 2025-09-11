@@ -36,7 +36,17 @@ export const calculatePriceImpact = (tradeAmount: number, liquidity: number): nu
 };
 
 // Format utilities
-export const formatCurrency = (amount: number, currency: string = 'USD'): string => {
+import { convertUSDToVND, formatVND } from '../config/currency';
+
+export const formatCurrency = (amount: number, currency: string = 'VND'): string => {
+  // Theo luật pháp Việt Nam, chuyển tất cả sang VNĐ
+  if (currency === 'USD' || currency === 'VND') {
+    // Nếu amount đang ở dạng USD, chuyển sang VNĐ
+    const vndAmount = currency === 'USD' ? convertUSDToVND(amount) : amount;
+    return formatVND(vndAmount);
+  }
+  
+  // Với các loại tiền tệ khác, giữ nguyên format cũ
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency,

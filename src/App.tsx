@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, ChevronDown, Shield, BarChart3, Coins, Globe, Github, Twitter, Lock, Zap, Network, Bell, Newspaper, ExternalLink, Building2, Wallet, Database, Boxes, AlertTriangle, Scan } from 'lucide-react';
+import { ArrowRight, ChevronDown, Shield, BarChart3, Coins, Globe, Github, Twitter, Lock, Zap, Network, Bell, Newspaper, ExternalLink, Building2, Wallet, Database, Boxes, AlertTriangle } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useWeb3 } from './contexts/Web3Context';
 import EnhancedChart from './components/EnhancedChart';
 import BiometricLogin from './components/BiometricLogin';
 import VNDComplianceBanner from './components/VNDComplianceBanner';
-import { SupabaseErrorBoundary } from './components/SupabaseErrorBoundary';
 import { motion } from 'framer-motion';
 
 
@@ -37,13 +36,12 @@ function App() {
   const { isConnected, connectWallet, loading, error, clearError } = useWeb3();
   const navigate = useNavigate();
   const [showBiometricLogin, setShowBiometricLogin] = useState(false);
-  const [hasBiometricData, setHasBiometricData] = useState(false);
   const [showVNDBanner, setShowVNDBanner] = useState(true);
 
   // Check for biometric data on component mount
   useEffect(() => {
-    const biometricData = localStorage.getItem('biometric_data');
-    setHasBiometricData(!!biometricData);
+    // biometric data could be used for auto-login logic if needed
+    localStorage.getItem('biometric_data');
   }, []);
 
   const handleGetStarted = async () => {
@@ -60,8 +58,7 @@ function App() {
   };
 
   return (
-    <SupabaseErrorBoundary>
-      <div className="min-h-screen bg-[#10131a] text-white">
+    <div className="min-h-screen bg-[#10131a] text-white">
       {/* Navigation */}
       <nav className="w-full px-8 py-4 flex justify-between items-center bg-[#10131a] border-b border-[#23263a]">
         <div className="flex items-center space-x-3">
@@ -566,8 +563,7 @@ function App() {
           onBack={() => setShowBiometricLogin(false)}
         />
       )}
-      </div>
-    </SupabaseErrorBoundary>
+    </div>
   );
 }
 

@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useWeb3 } from './contexts/Web3Context';
 import EnhancedChart from './components/EnhancedChart';
 import BiometricLogin from './components/BiometricLogin';
-import VNDComplianceBanner from './components/VNDComplianceBanner';
 import { motion } from 'framer-motion';
 
 
@@ -36,7 +35,6 @@ function App() {
   const { isConnected, connectWallet, loading, error, clearError } = useWeb3();
   const navigate = useNavigate();
   const [showBiometricLogin, setShowBiometricLogin] = useState(false);
-  const [showVNDBanner, setShowVNDBanner] = useState(true);
 
   // Check for biometric data on component mount
   useEffect(() => {
@@ -208,15 +206,6 @@ function App() {
           ))}
         </div>
       </section>
-
-      {/* VND Compliance Banner */}
-      {showVNDBanner && (
-        <section className="bg-gray-50 py-8">
-          <div className="container mx-auto px-4">
-            <VNDComplianceBanner onDismiss={() => setShowVNDBanner(false)} />
-          </div>
-        </section>
-      )}
 
       {/* Features Section */}
       <section className="bg-white py-20">
